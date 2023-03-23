@@ -1,4 +1,4 @@
-package com.example.ibbackend;
+package com.example.IBBackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
