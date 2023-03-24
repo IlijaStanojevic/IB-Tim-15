@@ -1,4 +1,4 @@
-package com.example.IBBackend;
+package com.example.ibbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
