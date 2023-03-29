@@ -1,10 +1,8 @@
-package com.example.ibbackend.model;
+package com.example.IBBackend.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@DiscriminatorValue("USER")
+@Document
 public class RegUser extends User{
     public RegUser(Integer id, String email, String password, String name, String surname) {
 		super(id, email, password, name, surname);
