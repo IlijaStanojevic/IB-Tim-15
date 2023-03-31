@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "6426c57d7b5da125cd44d78d"
+  },
+  "email": "aaaa",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "password": "$2a$10$ZRijApRwijtlmEFD7MUvr.uLK8sWqJu4ACHPSqtsXFTbE649ZcGTe",
+  "_class": "com.example.IBBackend.model.User"
+},{
+  "_id": {
+    "$oid": "6426cb3203a6252b51f495ce"
+  },
+  "email": "ooo",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "password": "$2a$10$8s1dWOFDKYXdIqtI6r.t.uI0i1XYStNszAPRKjBBXHOczu4Gbbo1.",
+  "_class": "com.example.IBBackend.model.User"
+}]
