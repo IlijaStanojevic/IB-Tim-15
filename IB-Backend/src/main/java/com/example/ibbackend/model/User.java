@@ -1,6 +1,8 @@
 package com.example.IBBackend.model;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,7 +21,8 @@ public class User implements UserDetails {
 
 
     @Id
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
     private String email;
 
@@ -36,7 +39,7 @@ public class User implements UserDetails {
         this.phoneNum = phoneNum;
     }
 
-    public User(Integer id, String email, String name, String surname, String phoneNum, String password) {
+    public User(String id, String email, String name, String surname, String phoneNum, String password) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -47,7 +50,7 @@ public class User implements UserDetails {
 
     private String password;
 
-    public User(Integer id, String email, String password, String name, String surname) {
+    public User(String id, String email, String password, String name, String surname) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -66,14 +69,14 @@ public class User implements UserDetails {
     /**
      * @return Integer return the id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
