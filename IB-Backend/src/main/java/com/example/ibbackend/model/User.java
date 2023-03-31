@@ -1,33 +1,67 @@
 package com.example.IBBackend.model;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorValue;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.w3c.dom.NameList;
+
+import java.util.Collection;
 
 
 @Document(collection = "users")
-public class User{
+@DiscriminatorValue("user")
+@DiscriminatorColumn(name = "TYPE")
+public class User implements UserDetails {
+
 
     @Id
-	private Integer id;
-
+    private Integer id;
 
     private String email;
 
     private String name;
 
     private String surname;
+    private String phoneNum;
 
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public User(Integer id, String email, String name, String surname, String phoneNum, String password) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.phoneNum = phoneNum;
+        this.password = password;
+    }
 
     private String password;
 
-	public User(Integer id, String email, String password, String name, String surname) {
-		this.id = id;
-		this.email = email;
-		this.password = password;
+    public User(Integer id, String email, String password, String name, String surname) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
         this.name = name;
         this.surname = surname;
-	}
+    }
+
+    public User(){
+        this.id = null;
+        this.email = "";
+        this.password = "";
+        this.name = "";
+        this.surname = "";
+    }
 
     /**
      * @return Integer return the id
@@ -99,5 +133,44 @@ public class User{
         this.surname = surname;
     }
 
+    @Transient
+    public String getDecriminatorValue() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+    }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+    }
+
+    @Override
+    public String getUsername() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonExpired'");
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonLocked'");
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isCredentialsNonExpired'");
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
+    }
 }

@@ -1,13 +1,11 @@
 package com.example.IBBackend.model;
 
 
+import org.springframework.data.mongodb.core.mapping.Document;
 
-//@Entity
-//@DiscriminatorValue("ADMIN")
+@Document
 public class Admin extends User{
-    public Admin(Integer id, String email, String password, String name, String surname) {
-		super(id, email, password, name, surname);
+	public Admin(Integer id, String email, String name, String surname, String phoneNumber, String password) {
+		super(id, email, name, surname, phoneNumber, password);
 	}
-
-
 }
