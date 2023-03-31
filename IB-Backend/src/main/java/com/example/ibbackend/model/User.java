@@ -1,28 +1,24 @@
-package com.example.ibbackend.model;
+package com.example.IBBackend.model;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.w3c.dom.NameList;
 
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "USERS")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "TYPE")
+@Document(collection = "users")
 public class User{
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-    @Column(name = "EMAIL", nullable = false)
+
     private String email;
 
-    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "SURNAME", nullable = false)
     private String surname;
 
-    @Column(name = "PASSWORD", nullable = false)
+
     private String password;
 
 	public User(Integer id, String email, String password, String name, String surname) {
@@ -103,8 +99,5 @@ public class User{
         this.surname = surname;
     }
 
-    @Transient
-	public String getDecriminatorValue() {
-		return this.getClass().getAnnotation(DiscriminatorValue.class).value();
-	}
+
 }

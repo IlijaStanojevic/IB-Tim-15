@@ -1,9 +1,10 @@
-package com.example.ibbackend.repository;
+package com.example.IBBackend.repository;
 
-import com.example.ibbackend.model.CertificateRef;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CertificateRefRepository extends JpaRepository<CertificateRef, Long>
+import com.example.IBBackend.model.CertificateRef;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface CertificateRefRepository extends MongoRepository<CertificateRef, Long>
 {
 
 }

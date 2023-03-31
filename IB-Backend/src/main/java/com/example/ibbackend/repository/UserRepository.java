@@ -1,14 +1,14 @@
-package com.example.ibbackend.repository;
+package com.example.IBBackend.repository;
 
-import com.example.ibbackend.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import com.example.IBBackend.model.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+@Repository
+public interface UserRepository extends MongoRepository<User, Integer> {
 
-public interface UserRepository extends JpaRepository<User, Integer> {
-    
-    @Query(value = "select * from Users where email = ?1", nativeQuery = true)
-    Optional<User> findByEmail(String email);
+
+    public User findByEmail(String email);
 
 }

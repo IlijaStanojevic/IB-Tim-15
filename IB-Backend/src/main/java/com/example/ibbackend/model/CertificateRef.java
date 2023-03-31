@@ -1,16 +1,14 @@
-package com.example.ibbackend.model;
+package com.example.IBBackend.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
-@Table(name = "certificate_refs")
-@Entity
+@Document(collection = "certificates")
 public class CertificateRef
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false, unique = true)
     private Long id;
     private boolean valid;
     private LocalDate startDate;
