@@ -51,6 +51,7 @@ public class CertificateGeneratorService {
     private UserRepository userRepository;
     @Autowired
     private CertificateRepository certificateRepository;
+    // TODO fix path
     private static final String certDir = "\\src\\main\\resources\\certs\\";
 
     private Certificate issuer;
@@ -117,7 +118,6 @@ public class CertificateGeneratorService {
                 throw new Exception("Certificate " + issuerSN + " not found");
             }
         }
-        // TODO valid from and to
 
         if ( validTo.isAfter(LocalDateTime.now())){
             throw new Exception("Date is not valid");
