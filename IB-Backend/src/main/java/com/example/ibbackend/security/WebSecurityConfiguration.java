@@ -1,6 +1,7 @@
 package com.example.IBBackend.security;
 
 //import com.example.IBBackend.security.jwt.JwtRequestFilter;
+import com.example.IBBackend.security.jwt.JwtRequestFilter;
 import com.example.IBBackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,8 +24,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfiguration {
-//	@Autowired
-//	private JwtRequestFilter jwtRequestFilter;
+	@Autowired
+	private JwtRequestFilter jwtRequestFilter;
 	@Autowired
 	public UserService userService;
 	@Autowired
@@ -47,9 +48,10 @@ public class WebSecurityConfiguration {
 						.requestMatchers(new AntPathRequestMatcher("/api/user/login")).permitAll()
 						.requestMatchers(new AntPathRequestMatcher("/api/user/signup")).permitAll()
 						.anyRequest().authenticated());
-//		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); //JWT procesiramo pre autentikacije
+		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); //JWT procesiramo pre autentikacije
 		http.headers().frameOptions().sameOrigin();
 		http.authenticationProvider(authenticationProvider());
+		http.csrf().disable();
 		return http.build();
 	}
 
