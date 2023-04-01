@@ -1,21 +1,56 @@
 [{
   "_id": {
-    "$oid": "6426c57d7b5da125cd44d78d"
+    "$oid": "6428324654802d69e9c0727b"
+  },
+  "email": "ooo1121111122",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "role": "ROLE_USER",
+  "password": "$2a$10$X14sTqX2lRQT7TIc0ojUYebWNFig2C8NXHGU/01sHNf5zbRVo5uua",
+  "_class": "com.example.IBBackend.model.User"
+},{
+  "_id": {
+    "$oid": "6428324e54802d69e9c0727c"
+  },
+  "email": "oooo",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "role": "ROLE_USER",
+  "password": "$2a$10$D8Fnpjt8CaDB6CTQPz0XOOJOIZwfrnri3Y0FanVUKpx/OHEIGNMMS",
+  "_class": "com.example.IBBackend.model.User"
+},{
+  "_id": {
+    "$oid": "6428325054802d69e9c0727d"
+  },
+  "email": "aaa",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "role": "ROLE_USER",
+  "password": "$2a$10$.8ZvnSnY9vdMHy0BsI7MXu5Thoyd7B9uo27pU1Iukfvm7163odnLS",
+  "_class": "com.example.IBBackend.model.User"
+},{
+  "_id": {
+    "$oid": "6428325354802d69e9c0727e"
   },
   "email": "aaaa",
   "name": "Bob",
   "surname": "Bobski",
   "phoneNum": "123125125152",
-  "password": "$2a$10$ZRijApRwijtlmEFD7MUvr.uLK8sWqJu4ACHPSqtsXFTbE649ZcGTe",
+  "role": "ROLE_USER",
+  "password": "$2a$10$.MigWYpT/DwhLy4QsmQ5/uJRwEF6EMydTeAG61hXgx7eyBClF5rta",
   "_class": "com.example.IBBackend.model.User"
 },{
   "_id": {
-    "$oid": "6426cb3203a6252b51f495ce"
+    "$oid": "6428326854802d69e9c0727f"
   },
-  "email": "ooo",
-  "name": "Bob",
-  "surname": "Bobski",
+  "email": "admin",
+  "name": "admin",
+  "surname": "admin",
   "phoneNum": "123125125152",
-  "password": "$2a$10$8s1dWOFDKYXdIqtI6r.t.uI0i1XYStNszAPRKjBBXHOczu4Gbbo1.",
+  "role": "ROLE_ADMIN",
+  "password": "$2a$10$sVmKk4aF/QkmamT6fUeO8e7M8v29g6sYir8spfMr4Qz1u/LI0snHi",
   "_class": "com.example.IBBackend.model.User"
 }]

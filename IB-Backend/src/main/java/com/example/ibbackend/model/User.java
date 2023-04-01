@@ -1,21 +1,17 @@
 package com.example.IBBackend.model;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.w3c.dom.NameList;
 
 import java.util.Collection;
+import java.util.List;
 
 
 @Document(collection = "users")
-@DiscriminatorValue("user")
+@DiscriminatorValue("USER")
 @DiscriminatorColumn(name = "TYPE")
 public class User implements UserDetails {
 
@@ -30,7 +26,12 @@ public class User implements UserDetails {
 
     private String surname;
     private String phoneNum;
-
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+    public enum UserRole{
+        ROLE_ADMIN,
+        ROLE_USER
+    }
     public String getPhoneNum() {
         return phoneNum;
     }
@@ -156,6 +157,14 @@ public class User implements UserDetails {
     public boolean isAccountNonLocked() {
         return true;
 //        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonLocked'");
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     @Override

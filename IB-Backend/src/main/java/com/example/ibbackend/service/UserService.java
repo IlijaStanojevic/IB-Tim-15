@@ -4,15 +4,18 @@ import com.example.IBBackend.dto.UserRequest;
 import com.example.IBBackend.model.User;
 import com.example.IBBackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -33,7 +36,11 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> ret = userRepository.findUserByEmail(email);
         if (ret.isPresent()) {
-            return org.springframework.security.core.userdetails.User.withUsername(email).password(ret.get().getPassword()).roles(ret.get().getDecriminatorValue()).build();
+            return org.springframework.security.core.userdetails.User
+                    .withUsername(email)
+                    .password(ret.get().getPassword())
+                    .authorities(ret.get().getRole().name())
+                    .build();
         }
         throw new UsernameNotFoundException("User not found with this email: " + email);
     }
@@ -47,11 +54,14 @@ public class UserService implements UserDetailsService {
         u.setSurname(userRequest.getSurname());
         u.setEmail(userRequest.getEmail());
         u.setPhoneNum(userRequest.getPhoneNum());
-
+        u.setRole(User.UserRole.ROLE_USER);
         return userRepository.save(u);
     }
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+    private static Collection<? extends GrantedAuthority> getAuthorities(List<User.UserRole> roles) {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
     }
 }
