@@ -12,6 +12,7 @@ import org.bouncycastle.cert.CertIOException;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
 import org.bouncycastle.jcajce.provider.asymmetric.RSA;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.x500.X500Principal;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -33,7 +35,9 @@ import java.nio.file.Paths;
 import java.security.*;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -99,9 +103,14 @@ public class CertificateGeneratorService {
             Optional<Certificate> issuerOptional = certificateRepository.findCertificateBySerialNumber(issuerSN);
             if (issuerOptional.isPresent()) {
                 issuer = issuerOptional.get();
-//                FileInputStream inputStream = new FileInputStream(certDir + "/" + issuerSN + ".crt");
-//                CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-//                X509Certificate cert = (X509Certificate) certificateFactory.generateCertificate(inputStream);
+                FileInputStream inputStreamCert = new FileInputStream(System.getProperty("user.dir") + certDir + "/" + issuerSN + ".crt");
+                CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+                issuerCertificate = (X509Certificate) certificateFactory.generateCertificate(inputStreamCert);
+
+                byte[] keyBytes = Files.readAllBytes(Paths.get(System.getProperty("user.dir") + certDir + issuerSN + ".key"));
+                KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+                PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
+                PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
                 // TODO  RSA private key read
 
             } else {
@@ -109,9 +118,13 @@ public class CertificateGeneratorService {
             }
         }
         // TODO valid from and to
-//        if (!(validTo > DateTime.Now && (string.IsNullOrEmpty(issuerSN) || validTo < issuerCertificate.NotAfter))){
-//            System.Console.WriteLine($"Comparing {validTo} and {DateTime.Now}");
-//            throw new Exception("The date is not in the accepted range");
+
+        if ( validTo.isAfter(LocalDateTime.now())){
+            throw new Exception("Date is not valid");
+        }
+        if (!issuerSN.isEmpty()){
+            issuerCertificate.checkValidity();
+        }
 
         this.validTo = validTo;
         Optional<User> userOptional = userRepository.findUserByEmail(subjectUsername);
@@ -168,10 +181,14 @@ public class CertificateGeneratorService {
         long lo = unique.getLeastSignificantBits();
         byte[] bytes = ByteBuffer.allocate(16).putLong(hi).putLong(lo).array();
         BigInteger big = new BigInteger(bytes).abs();
-//        String numericUuid = big.toString().replace('-','1');
 
-        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(new X500Name(subject.getName()), big, new Date(),
+        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(
+                issuerCertificate != null ? new JcaX509CertificateHolder(issuerCertificate).getSubject() : new X500Name(subject.getName())
+                , big, new Date(),
                 dateValidTo, new X500Name(subject.getName()), publicKey);
+//        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(new X500Name(subject.getName()), big, new Date(),
+//                dateValidTo, new X500Name(subject.getName()), publicKey);
+
         if (issuerCertificate == null) {
             certBuilder.addExtension(Extension.basicConstraints, true, new BasicConstraints(isAuthority));
         } else {
@@ -179,9 +196,6 @@ public class CertificateGeneratorService {
             certBuilder.addExtension(Extension.subjectKeyIdentifier, false, publicKey.getEncoded());
             certBuilder.addExtension(Extension.keyUsage, false, new KeyUsage(flags.getPadBits()));
         }
-//        certBuilder.addExtension(Extension.basicConstraints, true, new BasicConstraints(isAuthority));
-//        certBuilder.addExtension(Extension.authorityKeyIdentifier, false, issuerCertificate.getSubjectX500Principal().getEncoded());
-//        certBuilder.addExtension(Extension.subjectKeyIdentifier, false, publicKey.getEncoded());
         ContentSigner signer = new JcaContentSignerBuilder("SHA256WithRSAEncryption").setProvider(new BouncyCastleProvider()).build(privateKey);
         X509CertificateHolder certHolder = certBuilder.build(signer);
         X509Certificate generatedCertificate = new JcaX509CertificateConverter().setProvider(new BouncyCastleProvider())
