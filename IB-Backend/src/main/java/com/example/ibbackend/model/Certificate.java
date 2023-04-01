@@ -1,5 +1,7 @@
 package com.example.IBBackend.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,8 +11,6 @@ import java.time.LocalDate;
 public class Certificate
 {
     @Id
-    private String id;
-
     private String serialNumber;
     private String issuer;
     private LocalDate validFrom;
@@ -24,7 +24,6 @@ public class Certificate
     }
 
     public Certificate() {
-        this.id = "";
         this.serialNumber = "";
         this.issuer = "";
         this.validFrom = null;
@@ -34,8 +33,7 @@ public class Certificate
         this.username = "";
     }
 
-    public Certificate(String id, String serialNumber, String issuer, LocalDate validFrom, LocalDate validTo, boolean isValid, CertificateType type, String username) {
-        this.id = id;
+    public Certificate(String serialNumber, String issuer, LocalDate validFrom, LocalDate validTo, boolean isValid, CertificateType type, String username) {
         this.serialNumber = serialNumber;
         this.issuer = issuer;
         this.validFrom = validFrom;
@@ -45,13 +43,6 @@ public class Certificate
         this.username = username;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getSerialNumber() {
         return serialNumber;
