@@ -64,6 +64,7 @@ public class CertificateGeneratorService {
 
 
     public Certificate issueCertificate(String issuerSN, String subjectUsername, String keyUsageFlags, LocalDateTime validTo) throws Exception {
+        isAuthority = false;
         validate(issuerSN, subjectUsername, keyUsageFlags, validTo);
         X509Certificate cert = generateCertificate();
 
@@ -119,7 +120,7 @@ public class CertificateGeneratorService {
             }
         }
 
-        if ( validTo.isAfter(LocalDateTime.now())){
+        if ( validTo.isBefore(LocalDateTime.now())){
             throw new Exception("Date is not valid");
         }
         if (!issuerSN.isEmpty()){
@@ -157,6 +158,7 @@ public class CertificateGeneratorService {
             }
 
         }
+
 
         return new KeyUsage(retVal);
     }

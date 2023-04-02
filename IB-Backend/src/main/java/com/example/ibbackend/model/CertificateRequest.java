@@ -7,8 +7,53 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CertificateRequest {
     private CertificateContract contract;
     private String requester;
+    private String message;
+    private RequestState state;
+    private Certificate.CertificateType type;
+    private String userWhoDecides;
+
+
+
+
+
+    public String getUserWhoDecides() {
+        return userWhoDecides;
+    }
+
+    public void setUserWhoDecides(String userWhoDecides) {
+        this.userWhoDecides = userWhoDecides;
+    }
+
+    public enum RequestState{
+        ACCEPTED, DECLINED, PENDING
+    }
+
+    public RequestState getState() {
+        return state;
+    }
+
+    public void setState(RequestState state) {
+        this.state = state;
+    }
+
+    public Certificate.CertificateType getType() {
+        return type;
+    }
+
+    public void setType(Certificate.CertificateType type) {
+        this.type = type;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public CertificateRequest() {
+
     }
 
     public CertificateContract getContract() {
@@ -29,7 +74,7 @@ public class CertificateRequest {
     public boolean isSelfSigned(){
         return contract.getIssuerSN().isEmpty();
     }
-    public Certificate.CertificateType getType(){
+    public Certificate.CertificateType calculateType(){
         if (isSelfSigned()){
             if (contract.getKeyUsageFlags().contains("3")){
                 return Certificate.CertificateType.Root;
