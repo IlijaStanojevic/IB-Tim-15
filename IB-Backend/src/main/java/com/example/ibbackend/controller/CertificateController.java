@@ -4,6 +4,7 @@ import com.example.IBBackend.dto.CertificateContract;
 import com.example.IBBackend.dto.CertificateShortDTO;
 import com.example.IBBackend.model.Certificate;
 import com.example.IBBackend.model.CertificateRequest;
+import com.example.IBBackend.model.User;
 import com.example.IBBackend.repository.CertificateRepository;
 import com.example.IBBackend.service.CertRequestsService;
 import com.example.IBBackend.service.CertificateGeneratorService;
@@ -51,6 +52,11 @@ public class CertificateController {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
+    }
+    @GetMapping("api/certs/requests")
+    public ResponseEntity getAll(Authentication authentication){
+        List<CertificateRequest> certificateRequests = requestsService.findByRequester(authentication.getName());
+        return new ResponseEntity<>(certificateRequests, HttpStatus.OK);
     }
     @PostMapping("api/certs/request")
     public ResponseEntity requestCertificate(@RequestBody CertificateRequest request, Authentication auth){

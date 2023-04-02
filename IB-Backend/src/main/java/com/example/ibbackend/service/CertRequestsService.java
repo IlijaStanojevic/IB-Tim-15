@@ -46,4 +46,7 @@ public class CertRequestsService {
         requestsRepository.save(request);
         return request.getState() == CertificateRequest.RequestState.ACCEPTED;
     }
+    public List<CertificateRequest> findForUserToDecide(String email){
+        return requestsRepository.findCertificateRequestsByUserWhoDecides(email);
+    }
 }
