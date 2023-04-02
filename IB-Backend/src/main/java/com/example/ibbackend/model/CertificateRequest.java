@@ -1,10 +1,13 @@
 package com.example.IBBackend.model;
 
 import com.example.IBBackend.dto.CertificateContract;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "requests")
 public class CertificateRequest {
+    @Id
+    private String id;
     private CertificateContract contract;
     private String requester;
     private String message;

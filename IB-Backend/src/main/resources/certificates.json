@@ -1,0 +1,66 @@
+[{
+  "_id": "95186721209777793480147698678284618139",
+  "issuer": "162636139053865325487051799016735318623",
+  "validFrom": {
+    "$date": "2023-04-01T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "End",
+  "username": "oooo",
+  "_class": "com.example.IBBackend.model.Certificate"
+},{
+  "_id": "161715317183346005444675283773665339621",
+  "issuer": "95186721209777793480147698678284618139",
+  "validFrom": {
+    "$date": "2023-04-01T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "End",
+  "username": "oooo",
+  "_class": "com.example.IBBackend.model.Certificate"
+},{
+  "_id": "62713518349178141156652790061202508695",
+  "issuer": "95186721209777793480147698678284618139",
+  "validFrom": {
+    "$date": "2023-04-01T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "End",
+  "username": "aaa",
+  "_class": "com.example.IBBackend.model.Certificate"
+},{
+  "_id": "7209851085649041387686268860058439792",
+  "issuer": "95186721209777793480147698678284618139",
+  "validFrom": {
+    "$date": "2023-04-01T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "End",
+  "username": "aaa",
+  "_class": "com.example.IBBackend.model.Certificate"
+},{
+  "_id": "11507570489871791561860392782980938388",
+  "issuer": "95186721209777793480147698678284618139",
+  "validFrom": {
+    "$date": "2023-04-01T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "End",
+  "username": "aaa",
+  "_class": "com.example.IBBackend.model.Certificate"
+}]

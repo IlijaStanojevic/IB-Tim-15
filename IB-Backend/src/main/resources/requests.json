@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "6429d58474e13d2817f285ae"
+  },
+  "contract": {
+    "subjectEmail": "aaa",
+    "keyUsageFlags": "1,3,5",
+    "issuerSN": "95186721209777793480147698678284618139",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "aaa",
+  "message": "",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "oooo",
+  "_class": "com.example.IBBackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "6429d58974e13d2817f285af"
+  },
+  "contract": {
+    "subjectEmail": "aaa",
+    "keyUsageFlags": "1,3,5",
+    "issuerSN": "95186721209777793480147698678284618139",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "aaa",
+  "message": "",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "oooo",
+  "_class": "com.example.IBBackend.model.CertificateRequest"
+}]
