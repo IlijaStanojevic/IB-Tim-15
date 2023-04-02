@@ -1,23 +1,30 @@
-package com.example.IBBackend.controller;
+package com.example.ibbackend.controller;
 
-import com.example.IBBackend.dto.CertificateContract;
-import com.example.IBBackend.dto.CertificateShortDTO;
-import com.example.IBBackend.model.Certificate;
-import com.example.IBBackend.model.CertificateRequest;
-import com.example.IBBackend.model.User;
-import com.example.IBBackend.repository.CertificateRepository;
-import com.example.IBBackend.service.CertRequestsService;
-import com.example.IBBackend.service.CertificateGeneratorService;
-import com.example.IBBackend.service.UserService;
+import com.example.ibbackend.dto.CertificateShortDTO;
+import com.example.ibbackend.model.Certificate;
+import com.example.ibbackend.model.CertificateRequest;
+import com.example.ibbackend.model.User;
+import com.example.ibbackend.repository.CertificateRepository;
+import com.example.ibbackend.repository.UserRepository;
+import com.example.ibbackend.service.CertRequestsService;
+import com.example.ibbackend.service.CertificateGeneratorService;
+import com.example.ibbackend.service.UserService;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import net.minidev.json.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -30,17 +37,31 @@ public class CertificateController {
     private CertRequestsService requestsService;
     @Autowired
     private UserService userService;
-
     @Autowired
     private CertificateRepository certificateRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    @GetMapping("api/certs/")
-    public List<CertificateShortDTO> getAll(){
 
+    @GetMapping("/api/certs")
+    public List<CertificateShortDTO> getAll(@RequestHeader (name="Authorization") String token){
 
-        return certificateRepository.findAll().stream()
-                        .map(c -> new CertificateShortDTO(c.getValidFrom(), c.getType(), c.getUsername()))
-                        .collect(Collectors.toList());
+        String[] chunks = token.split("\\.");
+        Base64.Decoder decoder = Base64.getUrlDecoder();
+
+        String payload = new String(decoder.decode(chunks[1]));
+        String sub = payload.split("\"")[3];
+
+        UserDetails user = userService.loadUserByUsername(sub);
+        if(Objects.equals(user.getAuthorities().toString(), "[ROLE_ADMIN]")) {
+            return certificateRepository.findAll().stream()
+                    .map(c -> new CertificateShortDTO(c.getValidFrom(), c.getType(), c.getUsername()))
+                    .collect(Collectors.toList());
+        }else{
+            return certificateRepository.findAllByUsername(sub).stream()
+                    .map(c -> new CertificateShortDTO(c.getValidFrom(), c.getType(), c.getUsername()))
+                    .collect(Collectors.toList());
+        }
     }
 //    @PostMapping("api/certs/issue")
 //    public ResponseEntity issueCertificate(@RequestBody CertificateContract contract){
@@ -54,7 +75,7 @@ public class CertificateController {
 
 //    }
 
-    @PostMapping("api/certs/request")
+    @PostMapping("/api/certs/request")
     public ResponseEntity requestCertificate(@RequestBody CertificateRequest request, Authentication auth){
         try{
             if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){

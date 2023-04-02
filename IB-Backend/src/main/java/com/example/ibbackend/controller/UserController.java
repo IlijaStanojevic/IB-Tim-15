@@ -1,11 +1,11 @@
-package com.example.IBBackend.controller;
+package com.example.ibbackend.controller;
 
-import com.example.IBBackend.dto.JwtAuthenticationRequest;
-import com.example.IBBackend.dto.LoginResponse;
-import com.example.IBBackend.dto.UserRequest;
-import com.example.IBBackend.model.User;
-import com.example.IBBackend.security.jwt.JwtTokenUtil;
-import com.example.IBBackend.service.UserService;
+import com.example.ibbackend.dto.JwtAuthenticationRequest;
+import com.example.ibbackend.dto.LoginResponse;
+import com.example.ibbackend.dto.UserRequest;
+import com.example.ibbackend.model.User;
+import com.example.ibbackend.security.jwt.JwtTokenUtil;
+import com.example.ibbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,7 +35,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PostMapping("/api/user/login")
-    public ResponseEntity createToken (@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response){
+    public ResponseEntity createToken (@RequestBody JwtAuthenticationRequest authenticationRequest){
 
         try{
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -63,7 +63,7 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @PostMapping("/api/user/signup")
-    public ResponseEntity addUser(@RequestBody UserRequest userRequest, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity addUser(@RequestBody UserRequest userRequest) {
         Optional<User> existUser = this.userService.getByEmail(userRequest.getEmail());
 
 

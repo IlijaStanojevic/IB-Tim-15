@@ -1,4 +1,4 @@
-package com.example.IBBackend.dto;
+package com.example.ibbackend.dto;
 
 public class JwtAuthenticationRequest {
     private String email;

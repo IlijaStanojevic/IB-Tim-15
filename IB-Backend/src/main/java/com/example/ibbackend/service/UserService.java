@@ -1,8 +1,8 @@
-package com.example.IBBackend.service;
+package com.example.ibbackend.service;
 
-import com.example.IBBackend.dto.UserRequest;
-import com.example.IBBackend.model.User;
-import com.example.IBBackend.repository.UserRepository;
+import com.example.ibbackend.dto.UserRequest;
+import com.example.ibbackend.model.User;
+import com.example.ibbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

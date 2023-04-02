@@ -1,9 +1,9 @@
-package com.example.IBBackend.service;
+package com.example.ibbackend.service;
 
-import com.example.IBBackend.model.Certificate;
-import com.example.IBBackend.model.CertificateRequest;
-import com.example.IBBackend.repository.CertificateRepository;
-import com.example.IBBackend.repository.RequestsRepository;
+import com.example.ibbackend.model.Certificate;
+import com.example.ibbackend.model.CertificateRequest;
+import com.example.ibbackend.repository.CertificateRepository;
+import com.example.ibbackend.repository.RequestsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

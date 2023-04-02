@@ -1,9 +1,9 @@
-package com.example.IBBackend;
+package com.example.ibbackend;
 
-import com.example.IBBackend.dto.UserRequest;
-import com.example.IBBackend.model.User;
-import com.example.IBBackend.repository.UserRepository;
-import com.example.IBBackend.service.UserService;
+import com.example.ibbackend.dto.UserRequest;
+import com.example.ibbackend.model.User;
+import com.example.ibbackend.repository.UserRepository;
+import com.example.ibbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

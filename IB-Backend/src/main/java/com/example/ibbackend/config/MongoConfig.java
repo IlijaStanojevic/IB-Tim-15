@@ -1,4 +1,4 @@
-package com.example.IBBackend.config;
+package com.example.ibbackend.config;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.MongoClientFactoryBean;
 @Configuration
-@EnableMongoRepositories(basePackages = "com.example.IBBackend.repository")
+@EnableMongoRepositories(basePackages = "com.example.ibbackend.repository")
 public class MongoConfig {
 
     @Bean

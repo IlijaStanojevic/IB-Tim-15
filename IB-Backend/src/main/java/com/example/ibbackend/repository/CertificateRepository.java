@@ -1,7 +1,7 @@
-package com.example.IBBackend.repository;
+package com.example.ibbackend.repository;
 
 
-import com.example.IBBackend.model.Certificate;
+import com.example.ibbackend.model.Certificate;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +15,5 @@ public interface CertificateRepository extends MongoRepository<Certificate, Long
 
     public Optional<Certificate> findCertificateBySerialNumber(String serialNumber);
 
-
+    public List<Certificate> findAllByUsername(String email);
 }

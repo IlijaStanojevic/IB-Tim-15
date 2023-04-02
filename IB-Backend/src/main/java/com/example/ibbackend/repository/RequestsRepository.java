@@ -1,6 +1,6 @@
-package com.example.IBBackend.repository;
+package com.example.ibbackend.repository;
 
-import com.example.IBBackend.model.CertificateRequest;
+import com.example.ibbackend.model.CertificateRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

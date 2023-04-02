@@ -15,7 +15,7 @@
   "state": "ACCEPTED",
   "type": "End",
   "userWhoDecides": "oooo",
-  "_class": "com.example.IBBackend.model.CertificateRequest"
+  "_class": "com.example.ibbackend.model.CertificateRequest"
 },{
   "_id": {
     "$oid": "6429d58974e13d2817f285af"
@@ -33,5 +33,5 @@
   "state": "ACCEPTED",
   "type": "End",
   "userWhoDecides": "oooo",
-  "_class": "com.example.IBBackend.model.CertificateRequest"
+  "_class": "com.example.ibbackend.model.CertificateRequest"
 }]

@@ -1,8 +1,8 @@
-package com.example.IBBackend.security;
+package com.example.ibbackend.security;
 
-//import com.example.IBBackend.security.jwt.JwtRequestFilter;
-import com.example.IBBackend.security.jwt.JwtRequestFilter;
-import com.example.IBBackend.service.UserService;
+//import com.example.ibbackend.security.jwt.JwtRequestFilter;
+import com.example.ibbackend.security.jwt.JwtRequestFilter;
+import com.example.ibbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -10,7 +10,7 @@
   "isValid": true,
   "type": "End",
   "username": "oooo",
-  "_class": "com.example.IBBackend.model.Certificate"
+  "_class": "com.example.ibbackend.model.Certificate"
 },{
   "_id": "161715317183346005444675283773665339621",
   "issuer": "95186721209777793480147698678284618139",
@@ -23,7 +23,7 @@
   "isValid": true,
   "type": "End",
   "username": "oooo",
-  "_class": "com.example.IBBackend.model.Certificate"
+  "_class": "com.example.ibbackend.model.Certificate"
 },{
   "_id": "62713518349178141156652790061202508695",
   "issuer": "95186721209777793480147698678284618139",
@@ -36,7 +36,7 @@
   "isValid": true,
   "type": "End",
   "username": "aaa",
-  "_class": "com.example.IBBackend.model.Certificate"
+  "_class": "com.example.ibbackend.model.Certificate"
 },{
   "_id": "7209851085649041387686268860058439792",
   "issuer": "95186721209777793480147698678284618139",
@@ -49,7 +49,7 @@
   "isValid": true,
   "type": "End",
   "username": "aaa",
-  "_class": "com.example.IBBackend.model.Certificate"
+  "_class": "com.example.ibbackend.model.Certificate"
 },{
   "_id": "11507570489871791561860392782980938388",
   "issuer": "95186721209777793480147698678284618139",
@@ -62,5 +62,5 @@
   "isValid": true,
   "type": "End",
   "username": "aaa",
-  "_class": "com.example.IBBackend.model.Certificate"
+  "_class": "com.example.ibbackend.model.Certificate"
 }]

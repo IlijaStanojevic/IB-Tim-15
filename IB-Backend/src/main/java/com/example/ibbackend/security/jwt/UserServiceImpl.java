@@ -1,7 +1,7 @@
-//package com.example.IBBackend.security.jwt;
+//package com.example.ibbackend.security.jwt;
 //
-//import com.example.IBBackend.model.User;
-//import com.example.IBBackend.repository.UserRepository;
+//import com.example.ibbackend.model.User;
+//import com.example.ibbackend.repository.UserRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetailsService;

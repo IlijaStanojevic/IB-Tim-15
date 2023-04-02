@@ -1,4 +1,4 @@
-package com.example.IBBackend.model;
+package com.example.ibbackend.model;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;

@@ -1,6 +1,6 @@
-package com.example.IBBackend.dto;
+package com.example.ibbackend.dto;
 
-import com.example.IBBackend.model.Certificate;
+import com.example.ibbackend.model.Certificate;
 
 import java.time.LocalDate;
 

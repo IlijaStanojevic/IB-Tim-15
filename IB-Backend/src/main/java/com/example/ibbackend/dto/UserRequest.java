@@ -1,4 +1,4 @@
-package com.example.IBBackend.dto;
+package com.example.ibbackend.dto;
 
 public class UserRequest {
     private String email;
@@ -54,4 +54,6 @@ public class UserRequest {
         this.surname = surname;
         this.phoneNum = phoneNum;
     }
+
+    public UserRequest(){}
 }

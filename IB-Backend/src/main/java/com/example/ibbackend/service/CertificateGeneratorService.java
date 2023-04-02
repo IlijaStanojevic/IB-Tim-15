@@ -1,9 +1,9 @@
-package com.example.IBBackend.service;
+package com.example.ibbackend.service;
 
-import com.example.IBBackend.model.Certificate;
-import com.example.IBBackend.model.User;
-import com.example.IBBackend.repository.CertificateRepository;
-import com.example.IBBackend.repository.UserRepository;
+import com.example.ibbackend.model.Certificate;
+import com.example.ibbackend.model.User;
+import com.example.ibbackend.repository.CertificateRepository;
+import com.example.ibbackend.repository.UserRepository;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.Extension;
