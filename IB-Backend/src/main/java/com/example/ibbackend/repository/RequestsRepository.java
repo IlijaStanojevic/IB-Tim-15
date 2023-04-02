@@ -14,4 +14,5 @@ public interface RequestsRepository  extends MongoRepository<CertificateRequest,
     public List<CertificateRequest> findCertificateRequestsByRequester(String requester);
     public List<CertificateRequest> findCertificateRequestsByContract_IssuerSN(String issuerSN);
     public List<CertificateRequest> findCertificateRequestsByUserWhoDecides(String email);
+    public Optional<CertificateRequest> findCertificateRequestsById(String id);
 }

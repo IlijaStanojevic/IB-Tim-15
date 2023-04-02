@@ -37,4 +37,30 @@
   "type": "End",
   "username": "aaa",
   "_class": "com.example.IBBackend.model.Certificate"
+},{
+  "_id": "7209851085649041387686268860058439792",
+  "issuer": "95186721209777793480147698678284618139",
+  "validFrom": {
+    "$date": "2023-04-01T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "End",
+  "username": "aaa",
+  "_class": "com.example.IBBackend.model.Certificate"
+},{
+  "_id": "11507570489871791561860392782980938388",
+  "issuer": "95186721209777793480147698678284618139",
+  "validFrom": {
+    "$date": "2023-04-01T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "End",
+  "username": "aaa",
+  "_class": "com.example.IBBackend.model.Certificate"
 }]

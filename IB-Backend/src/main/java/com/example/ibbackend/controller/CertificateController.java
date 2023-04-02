@@ -42,22 +42,18 @@ public class CertificateController {
                         .map(c -> new CertificateShortDTO(c.getValidFrom(), c.getType(), c.getUsername()))
                         .collect(Collectors.toList());
     }
-    @PostMapping("api/certs/issue")
-    public ResponseEntity issueCertificate(@RequestBody CertificateContract contract){
-        try{
-            Certificate certificate = generatorService.issueCertificate(contract.getIssuerSN(), contract.getSubjectEmail()
-                    , contract.getKeyUsageFlags(), contract.getDate());
-            return new ResponseEntity(certificate, HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+//    @PostMapping("api/certs/issue")
+//    public ResponseEntity issueCertificate(@RequestBody CertificateContract contract){
+//        try{
+//            Certificate certificate = generatorService.issueCertificate(contract.getIssuerSN(), contract.getSubjectEmail()
+//                    , contract.getKeyUsageFlags(), contract.getDate());
+//            return new ResponseEntity(certificate, HttpStatus.OK);
+//        }catch (Exception e){
+//            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
 
-    }
-    @GetMapping("api/certs/requests")
-    public ResponseEntity getAll(Authentication authentication){
-        List<CertificateRequest> certificateRequests = requestsService.findByRequester(authentication.getName());
-        return new ResponseEntity<>(certificateRequests, HttpStatus.OK);
-    }
+//    }
+
     @PostMapping("api/certs/request")
     public ResponseEntity requestCertificate(@RequestBody CertificateRequest request, Authentication auth){
         try{
