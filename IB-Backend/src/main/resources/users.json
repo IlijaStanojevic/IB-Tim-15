@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "6428324654802d69e9c0727b"
+  },
+  "email": "ooo1121111122",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "role": "ROLE_USER",
+  "password": "$2a$10$X14sTqX2lRQT7TIc0ojUYebWNFig2C8NXHGU/01sHNf5zbRVo5uua",
+  "_class": "com.example.ibbackend.model.User"
+},{
+  "_id": {
+    "$oid": "6428324e54802d69e9c0727c"
+  },
+  "email": "oooo",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "role": "ROLE_USER",
+  "password": "$2a$12$mja.jEYecSIoJ4g4G/meueYxTEjdAbQopGPDECHt/IavR5lO0RiS2",
+  "_class": "com.example.ibbackend.model.User"
+},{
+  "_id": {
+    "$oid": "6428325054802d69e9c0727d"
+  },
+  "email": "aaa",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "role": "ROLE_USER",
+  "password": "$2a$10$.8ZvnSnY9vdMHy0BsI7MXu5Thoyd7B9uo27pU1Iukfvm7163odnLS",
+  "_class": "com.example.ibbackend.model.User"
+},{
+  "_id": {
+    "$oid": "6428325354802d69e9c0727e"
+  },
+  "email": "aaaa",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "role": "ROLE_USER",
+  "password": "$2a$10$.MigWYpT/DwhLy4QsmQ5/uJRwEF6EMydTeAG61hXgx7eyBClF5rta",
+  "_class": "com.example.ibbackend.model.User"
+},{
+  "_id": {
+    "$oid": "6428326854802d69e9c0727f"
+  },
+  "email": "admin",
+  "name": "admin",
+  "surname": "admin",
+  "phoneNum": "123125125152",
+  "role": "ROLE_ADMIN",
+  "password": "$2a$10$sVmKk4aF/QkmamT6fUeO8e7M8v29g6sYir8spfMr4Qz1u/LI0snHi",
+  "_class": "com.example.ibbackend.model.User"
+}]

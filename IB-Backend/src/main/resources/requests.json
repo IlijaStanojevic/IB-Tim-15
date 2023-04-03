@@ -1,0 +1,235 @@
+[{
+  "_id": {
+    "$oid": "6429d58474e13d2817f285ae"
+  },
+  "contract": {
+    "subjectEmail": "aaa",
+    "keyUsageFlags": "1,3,5",
+    "issuerSN": "95186721209777793480147698678284618139",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "aaa",
+  "message": "",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "oooo",
+  "_class": "com.example.IBBackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "6429d58974e13d2817f285af"
+  },
+  "contract": {
+    "subjectEmail": "aaa",
+    "keyUsageFlags": "1,3,5",
+    "issuerSN": "95186721209777793480147698678284618139",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "aaa",
+  "message": "",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "oooo",
+  "_class": "com.example.IBBackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a652fd83e0e6cd9c1fdd4"
+  },
+  "contract": {
+    "subjectEmail": "admin",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "admin",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "Root",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a6557d83e0e6cd9c1fdd5"
+  },
+  "contract": {
+    "subjectEmail": "admin",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "59194561229662209422842704064281631389",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "admin",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a6575d83e0e6cd9c1fdd6"
+  },
+  "contract": {
+    "subjectEmail": "admin",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "59194561229662209422842704064281631389",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "admin",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a657fd83e0e6cd9c1fdd7"
+  },
+  "contract": {
+    "subjectEmail": "admin",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "59194561229662209422842704064281631389",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "admin",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a65e7d83e0e6cd9c1fdd8"
+  },
+  "contract": {
+    "subjectEmail": "oooo",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "59194561229662209422842704064281631389",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "oooo",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a6612d83e0e6cd9c1fdd9"
+  },
+  "contract": {
+    "subjectEmail": "oooo",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "59194561229662209422842704064281631389",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "oooo",
+  "message": "",
+  "state": "PENDING",
+  "type": "End",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a66b8787783293854cc2b"
+  },
+  "contract": {
+    "subjectEmail": "oooo",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "59194561229662209422842704064281631389",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "oooo",
+  "message": "",
+  "state": "PENDING",
+  "type": "End",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a66d7fc10fc506c22ca72"
+  },
+  "contract": {
+    "subjectEmail": "oooo",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "59194561229662209422842704064281631389",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "oooo",
+  "message": "",
+  "state": "PENDING",
+  "type": "Intermediate",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a67f17060fe3f952d6588"
+  },
+  "contract": {
+    "subjectEmail": "oooo",
+    "keyUsageFlags": "1,3,5",
+    "issuerSN": "136333133838200126766296992836701848467",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "oooo",
+  "message": "Accepted for same owner automatically",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "oooo",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a67fd7060fe3f952d6589"
+  },
+  "contract": {
+    "subjectEmail": "aaa",
+    "keyUsageFlags": "1,3,5",
+    "issuerSN": "136333133838200126766296992836701848467",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "aaa",
+  "message": "",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "oooo",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "642a68a87060fe3f952d658a"
+  },
+  "contract": {
+    "subjectEmail": "aaa",
+    "keyUsageFlags": "1,3,5",
+    "issuerSN": "136333133838200126766296992836701848467",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "aaa",
+  "message": "\"don't\"",
+  "state": "DECLINED",
+  "type": "End",
+  "userWhoDecides": "oooo",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+}]

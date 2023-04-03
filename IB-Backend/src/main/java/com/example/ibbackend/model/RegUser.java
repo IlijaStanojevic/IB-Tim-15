@@ -1,12 +1,18 @@
 package com.example.ibbackend.model;
 
 import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@DiscriminatorValue("USER")
+@Document
 public class RegUser extends User{
-    public RegUser(Integer id, String email, String password, String name, String surname) {
-		super(id, email, password, name, surname);
+    public RegUser(String id, String email, String password, String phoneNum, String name, String surname) {
+		super(id, email, name, surname, phoneNum, password);
 	}
+
+	@Transient
+	public String getDecriminatorValue() {
+		return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+	}
+
 }

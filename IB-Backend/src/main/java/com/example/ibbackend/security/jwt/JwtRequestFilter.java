@@ -1,5 +1,6 @@
 package com.example.ibbackend.security.jwt;
 
+import com.example.ibbackend.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,9 +19,9 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 	@Autowired
-	private UserServiceImpl jwtUserDetailsService;
+	private UserService jwtUserDetailsService;
 	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
+	private com.example.ibbackend.security.jwt.JwtTokenUtil jwtTokenUtil;
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {

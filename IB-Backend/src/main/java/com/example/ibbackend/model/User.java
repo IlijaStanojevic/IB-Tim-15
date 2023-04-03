@@ -1,49 +1,77 @@
 package com.example.ibbackend.model;
-import org.w3c.dom.NameList;
-
 import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
 
-@Entity
-@Table(name = "USERS")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+import java.util.Collection;
+import java.util.List;
+
+
+@Document(collection = "users")
+@DiscriminatorValue("USER")
 @DiscriminatorColumn(name = "TYPE")
-public class User{
+public class User implements UserDetails {
+
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
-    @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "SURNAME", nullable = false)
     private String surname;
+    private String phoneNum;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+    public enum UserRole{
+        ROLE_ADMIN,
+        ROLE_USER
+    }
+    public String getPhoneNum() {
+        return phoneNum;
+    }
 
-    @Column(name = "PASSWORD", nullable = false)
-    private String password;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
 
-	public User(Integer id, String email, String password, String name, String surname) {
-		this.id = id;
-		this.email = email;
-		this.password = password;
+    public User(String id, String email, String name, String surname, String phoneNum, String password) {
+        this.id = id;
+        this.email = email;
         this.name = name;
         this.surname = surname;
-	}
+        this.phoneNum = phoneNum;
+        this.password = password;
+    }
+
+    private String password;
+
+
+    public User(){
+        this.id = null;
+        this.email = "";
+        this.password = "";
+        this.name = "";
+        this.phoneNum = "";
+        this.surname = "";
+    }
 
     /**
      * @return Integer return the id
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -104,7 +132,51 @@ public class User{
     }
 
     @Transient
-	public String getDecriminatorValue() {
-		return this.getClass().getAnnotation(DiscriminatorValue.class).value();
-	}
+    public String getDecriminatorValue() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+//        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+//        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonExpired'");
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+//        throw new UnsupportedOperationException("Unimplemented method 'isAccountNonLocked'");
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+//        throw new UnsupportedOperationException("Unimplemented method 'isCredentialsNonExpired'");
+    }
+
+    @Override
+    public boolean isEnabled() {
+//        throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
+        return true;
+    }
+
 }

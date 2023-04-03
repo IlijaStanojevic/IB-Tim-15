@@ -1,6 +1,7 @@
 package com.example.ibbackend.security.jwt;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,10 +24,23 @@ public class JwtTokenUtil implements Serializable {
 	private String secret;
 	//retrieve username from jwt token
 	public String getUsernameFromToken(String token) {
-		return getClaimFromToken(token, Claims::getSubject);
+		String username;
+
+		try {
+			final Claims claims = this.getAllClaimsFromToken(token);
+			username = claims.getSubject();
+		} catch (ExpiredJwtException ex) {
+			throw ex;
+		} catch (Exception e) {
+			username = null;
+		}
+
+		return username;
+//		return getClaimFromToken(token, Claims::getSubject);
 	}
 	//retrieve expiration date from jwt token
 	public Date getExpirationDateFromToken(String token) {
+
 		return getClaimFromToken(token, Claims::getExpiration);
 	}
 	public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
@@ -43,6 +57,11 @@ public class JwtTokenUtil implements Serializable {
 		return expiration.before(new Date());
 	}
 	//generate token for user
+	public String generateToken(String email) {
+		return Jwts.builder().setSubject(email).setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+				.signWith(SignatureAlgorithm.HS512, secret).compact();
+	}
 	public String generateToken(String email, String role, Integer id) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("role", role);
