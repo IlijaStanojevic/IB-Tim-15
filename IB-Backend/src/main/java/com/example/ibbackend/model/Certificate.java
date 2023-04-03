@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Document(collection = "certificates")
 public class Certificate
@@ -98,5 +99,8 @@ public class Certificate
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    public boolean checkDate(LocalDate date){
+        return (date.isAfter(validFrom) || date.isEqual(validFrom)  )&& date.isBefore(validTo);
     }
 }

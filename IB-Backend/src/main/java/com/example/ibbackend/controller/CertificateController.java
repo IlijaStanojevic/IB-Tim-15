@@ -63,6 +63,17 @@ public class CertificateController {
                     .collect(Collectors.toList());
         }
     }
+    @GetMapping("/api/certs/{id}/validate")
+    public ResponseEntity validate(@PathVariable String id){
+        if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()){
+            return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
+        }
+        if (!generatorService.validateCertificate(id)){
+            return new ResponseEntity(id + " is not valid", HttpStatus.BAD_REQUEST);
+        }else{
+            return new ResponseEntity(id + " is valid", HttpStatus.OK);
+        }
+    }
 //    @PostMapping("api/certs/issue")
 //    public ResponseEntity issueCertificate(@RequestBody CertificateContract contract){
 //        try{

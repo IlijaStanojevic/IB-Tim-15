@@ -39,6 +39,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -62,6 +63,20 @@ public class CertificateGeneratorService {
     private LocalDateTime validTo;
     private KeyPair currentRSA;
 
+    public boolean validateCertificate(String serialNumber) {
+
+        Certificate cert = certificateRepository.findCertificateBySerialNumber(serialNumber).get();
+
+        if (cert.getType() == Certificate.CertificateType.Root) {
+            return true;
+        } else {
+            if (cert.isValid() && cert.checkDate(LocalDate.now())) {
+                return validateCertificate(cert.getIssuer());
+            } else {
+                return false;
+            }
+        }
+    }
 
     public Certificate issueCertificate(String issuerSN, String subjectUsername, String keyUsageFlags, LocalDateTime validTo) throws Exception {
         isAuthority = false;
@@ -120,10 +135,10 @@ public class CertificateGeneratorService {
             }
         }
 
-        if ( validTo.isBefore(LocalDateTime.now())){
+        if (validTo.isBefore(LocalDateTime.now())) {
             throw new Exception("Date is not valid");
         }
-        if (!issuerSN.isEmpty()){
+        if (!issuerSN.isEmpty()) {
             issuerCertificate.checkValidity();
         }
 
@@ -150,7 +165,7 @@ public class CertificateGeneratorService {
                 int index = Integer.parseInt(flag);
                 int currentFlag = possibleElements[index];
                 retVal |= currentFlag;
-                if (currentFlag == KeyUsage.keyCertSign){
+                if (currentFlag == KeyUsage.keyCertSign) {
                     isAuthority = true;
                 }
             } catch (NumberFormatException e) {
