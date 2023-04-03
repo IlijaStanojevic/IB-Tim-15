@@ -44,21 +44,15 @@ public class CertificateController {
 
 
     @GetMapping("/api/certs")
-    public List<CertificateShortDTO> getAll(@RequestHeader (name="Authorization") String token){
+    public List<CertificateShortDTO> getAll(Authentication authentication){
 
-        String[] chunks = token.split("\\.");
-        Base64.Decoder decoder = Base64.getUrlDecoder();
-
-        String payload = new String(decoder.decode(chunks[1]));
-        String sub = payload.split("\"")[3];
-
-        UserDetails user = userService.loadUserByUsername(sub);
-        if(Objects.equals(user.getAuthorities().toString(), "[ROLE_ADMIN]")) {
+        Optional<User> sub = userService.getByEmail(authentication.getName());
+        if(Objects.equals(sub.get().getRole().toString(), "ROLE_ADMIN")) {
             return certificateRepository.findAll().stream()
                     .map(c -> new CertificateShortDTO(c.getValidFrom(), c.getType(), c.getUsername()))
                     .collect(Collectors.toList());
         }else{
-            return certificateRepository.findAllByUsername(sub).stream()
+            return certificateRepository.findAllByUsername(sub.get().getEmail()).stream()
                     .map(c -> new CertificateShortDTO(c.getValidFrom(), c.getType(), c.getUsername()))
                     .collect(Collectors.toList());
         }
