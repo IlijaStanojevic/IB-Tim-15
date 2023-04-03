@@ -73,6 +73,6 @@ public class UserController {
 
         User user = this.userService.save(userRequest);
 
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>("Successful sign up!", HttpStatus.CREATED);
     }
 }
