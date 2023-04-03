@@ -55,13 +55,19 @@ public class CertRequestsService {
         if (!request.get().getUserWhoDecides().equals(email)){
             throw new Exception("You don't have the authority to accept this request");
         }
+        if (request.get().getState() != CertificateRequest.RequestState.PENDING){
+            throw new Exception("You cannot accept non pending requests");
+        }
         request.get().setState(CertificateRequest.RequestState.ACCEPTED);
         requestsRepository.save(request.get());
     }
     public void declineRequest(String id, String email, String reason) throws Exception {
         Optional<CertificateRequest> request = requestsRepository.findCertificateRequestsById(id);
-        if (request.get().getUserWhoDecides().equals(email)){
+        if (!request.get().getUserWhoDecides().equals(email)){
             throw new Exception("You don't have the authority to decline this request");
+        }
+        if (request.get().getState() != CertificateRequest.RequestState.PENDING){
+            throw new Exception("You cannot decline non pending requests");
         }
         request.get().setState(CertificateRequest.RequestState.DECLINED);
         request.get().setMessage(reason);

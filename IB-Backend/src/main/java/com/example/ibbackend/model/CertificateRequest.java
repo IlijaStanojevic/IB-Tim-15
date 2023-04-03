@@ -79,8 +79,8 @@ public class CertificateRequest {
         return contract.getIssuerSN().isEmpty();
     }
     public Certificate.CertificateType calculateType(){
-        if (isSelfSigned()){
-            if (contract.getKeyUsageFlags().contains("3")){
+        if (contract.getKeyUsageFlags().contains("2")){
+            if (isSelfSigned()){
                 return Certificate.CertificateType.Root;
             }else{
                 return Certificate.CertificateType.Intermediate;

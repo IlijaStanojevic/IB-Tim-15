@@ -50,4 +50,18 @@ public class RequestsController {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    @PutMapping("api/certs/{id}/decline")
+    public ResponseEntity declineRequest(@PathVariable String id,@RequestBody String reasonForDeclining, Authentication authentication){
+        try{
+            Optional<CertificateRequest> request = requestsService.findById(id);
+            if (request.isEmpty()){
+                return new ResponseEntity("Request not found", HttpStatus.NOT_FOUND);
+            }
+            requestsService.declineRequest(id, authentication.getName(), reasonForDeclining);
+            return new ResponseEntity("Request declined!", HttpStatus.OK);
+
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
