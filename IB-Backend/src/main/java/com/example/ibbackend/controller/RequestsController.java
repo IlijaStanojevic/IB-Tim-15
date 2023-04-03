@@ -1,9 +1,12 @@
-package com.example.ibbackend.service;
+package com.example.ibbackend.controller;
 
 import com.example.ibbackend.model.Certificate;
 import com.example.ibbackend.model.CertificateRequest;
 import com.example.ibbackend.repository.CertificateRepository;
 import com.example.ibbackend.repository.RequestsRepository;
+import com.example.ibbackend.service.CertRequestsService;
+import com.example.ibbackend.service.CertificateGeneratorService;
+import com.example.ibbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
