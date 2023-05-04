@@ -34,34 +34,36 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @PostMapping("/api/user/login")
-    public ResponseEntity createToken (@RequestBody JwtAuthenticationRequest authenticationRequest){
 
-        try{
+    @PostMapping("/api/user/login")
+    public ResponseEntity createToken(@RequestBody JwtAuthenticationRequest authenticationRequest) {
+
+        try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getEmail(), authenticationRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String jwt = tokenUtil.generateToken(userDetails.getUsername());
+            Optional<User> user = userService.getByEmail(userDetails.getUsername());
+            String jwt = tokenUtil.generateToken(userDetails.getUsername(), user.get().getRole().toString());
             Date expiresIn = tokenUtil.getExpirationDateFromToken(jwt);
 
             LoginResponse userTokenState = new LoginResponse(jwt, expiresIn);
-            String userId;
-            if (userDetails instanceof User) {
-                userId = ((User) userDetails).getId();
-                userTokenState.setUserId(userId);
-            }
+
+            userTokenState.setUserId(user.get().getId());
+            userTokenState.setRole(user.get().getRole().toString());
+
 
             return ResponseEntity.ok(userTokenState);
-        }
-        catch(Exception ignored) {
+        } catch (Exception ignored) {
             return new ResponseEntity("Wrong username or password!", HttpStatus.BAD_REQUEST);
         }
     }
+
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @PostMapping("/api/user/signup")
     public ResponseEntity addUser(@RequestBody UserRequest userRequest) {
         Optional<User> existUser = this.userService.getByEmail(userRequest.getEmail());

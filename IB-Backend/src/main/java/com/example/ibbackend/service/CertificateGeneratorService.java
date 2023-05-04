@@ -60,6 +60,7 @@ public class CertificateGeneratorService {
     private KeyUsage flags;
     private boolean isAuthority;
     private X509Certificate issuerCertificate;
+    private PrivateKey issuerPrivateKey;
     private LocalDateTime validTo;
     private KeyPair currentRSA;
 
@@ -127,7 +128,8 @@ public class CertificateGeneratorService {
                 byte[] keyBytes = Files.readAllBytes(Paths.get(System.getProperty("user.dir") + certDir + issuerSN + ".key"));
                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
                 PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
-                PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+                issuerPrivateKey = keyFactory.generatePrivate(keySpec);
+
                 // TODO  RSA private key read
 
             } else {
@@ -213,7 +215,13 @@ public class CertificateGeneratorService {
             certBuilder.addExtension(Extension.subjectKeyIdentifier, false, publicKey.getEncoded());
             certBuilder.addExtension(Extension.keyUsage, false, new KeyUsage(flags.getPadBits()));
         }
-        ContentSigner signer = new JcaContentSignerBuilder("SHA256WithRSAEncryption").setProvider(new BouncyCastleProvider()).build(privateKey);
+        ContentSigner signer;
+        if (issuerCertificate == null) {
+            signer = new JcaContentSignerBuilder("SHA256WithRSAEncryption").setProvider(new BouncyCastleProvider()).build(privateKey);
+        } else {
+            signer = new JcaContentSignerBuilder("SHA256WithRSAEncryption").setProvider(new BouncyCastleProvider()).build(issuerPrivateKey);
+        }
+
         X509CertificateHolder certHolder = certBuilder.build(signer);
         X509Certificate generatedCertificate = new JcaX509CertificateConverter().setProvider(new BouncyCastleProvider())
                 .getCertificate(certHolder);

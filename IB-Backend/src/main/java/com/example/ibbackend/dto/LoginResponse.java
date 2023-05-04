@@ -4,10 +4,18 @@ import java.util.Date;
 
 public class LoginResponse {
     private String accessToken;
-
+    private String role;
 
     private String userId;
     private Date expiresIn;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public LoginResponse() {
         this.accessToken = null;

@@ -57,7 +57,12 @@ public class JwtTokenUtil implements Serializable {
 		return expiration.before(new Date());
 	}
 	//generate token for user
-	public String generateToken(String email) {
+	public String generateToken(String email, String role) {
+//		Map<String, Object> claims = new HashMap<>();
+//		claims.put("role", role);
+//		return Jwts.builder().setSubject(email).setClaims(claims).setIssuedAt(new Date(System.currentTimeMillis()))
+//				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+//				.signWith(SignatureAlgorithm.HS512, secret).compact();
 		return Jwts.builder().setSubject(email).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
