@@ -21,12 +21,10 @@ import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.x500.X500Principal;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
@@ -77,6 +75,14 @@ public class CertificateGeneratorService {
                 return false;
             }
         }
+    }
+    public String getSerialNumberFromFile(MultipartFile file) throws IOException, CertificateException {
+        byte[] fileBytes = file.getBytes();
+        org.bouncycastle.jcajce.provider.asymmetric.x509.CertificateFactory factory = new org.bouncycastle.jcajce.provider.asymmetric.x509.CertificateFactory();
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(fileBytes);
+        X509Certificate certificate = (X509Certificate) factory.engineGenerateCertificate(inputStream);
+        String serialNumber = certificate.getSerialNumber().toString();
+        return serialNumber;
     }
 
     public Certificate issueCertificate(String issuerSN, String subjectUsername, String keyUsageFlags, LocalDateTime validTo) throws Exception {

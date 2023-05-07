@@ -63,6 +63,13 @@ public class CertificateController {
                     .collect(Collectors.toList());
         }
     }
+    @GetMapping("/api/certs/{id}/download")
+    public ResponseEntity downloadCert(@PathVariable String id){
+        if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()){
+            return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
+        }
+        return null;
+    }
     @GetMapping("/api/certs/{id}/validate")
     public ResponseEntity validateSerialNumber(@PathVariable String id){
         if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()){
@@ -77,23 +84,17 @@ public class CertificateController {
     @PostMapping("/api/certs/validate/upload")
     public ResponseEntity validateUploadedFile(@RequestParam("file")MultipartFile file){
         try {
-            byte[] fileBytes = file.getBytes();
-            CertificateFactory factory = new CertificateFactory();
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(fileBytes);
-            X509Certificate certificate = (X509Certificate) factory.engineGenerateCertificate(inputStream);
-            String serialNumber = certificate.getSerialNumber().toString();
+            String serialNumber = generatorService.getSerialNumberFromFile(file);
             if (!generatorService.validateCertificate(serialNumber)){
                 return new ResponseEntity(serialNumber + " is not valid", HttpStatus.BAD_REQUEST);
             }else{
                 return new ResponseEntity(serialNumber + " is valid", HttpStatus.OK);
             }
         } catch (IOException e) {
-            // Handle the file processing error
             return new ResponseEntity("Error processing file", HttpStatus.BAD_REQUEST);
         } catch (CertificateException e) {
             return new ResponseEntity("Error processing the certificate", HttpStatus.BAD_REQUEST);
         }
-
     }
 //    @PostMapping("api/certs/issue")
 //    public ResponseEntity issueCertificate(@RequestBody CertificateContract contract){
