@@ -12,6 +12,7 @@ import com.example.ibbackend.service.UserService;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
+import org.bouncycastle.jcajce.provider.asymmetric.x509.CertificateFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +22,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
@@ -58,7 +64,7 @@ public class CertificateController {
         }
     }
     @GetMapping("/api/certs/{id}/validate")
-    public ResponseEntity validate(@PathVariable String id){
+    public ResponseEntity validateSerialNumber(@PathVariable String id){
         if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()){
             return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
         }
@@ -67,6 +73,27 @@ public class CertificateController {
         }else{
             return new ResponseEntity(id + " is valid", HttpStatus.OK);
         }
+    }
+    @PostMapping("/api/certs/validate/upload")
+    public ResponseEntity validateUploadedFile(@RequestParam("file")MultipartFile file){
+        try {
+            byte[] fileBytes = file.getBytes();
+            CertificateFactory factory = new CertificateFactory();
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(fileBytes);
+            X509Certificate certificate = (X509Certificate) factory.engineGenerateCertificate(inputStream);
+            String serialNumber = certificate.getSerialNumber().toString();
+            if (!generatorService.validateCertificate(serialNumber)){
+                return new ResponseEntity(serialNumber + " is not valid", HttpStatus.BAD_REQUEST);
+            }else{
+                return new ResponseEntity(serialNumber + " is valid", HttpStatus.OK);
+            }
+        } catch (IOException e) {
+            // Handle the file processing error
+            return new ResponseEntity("Error processing file", HttpStatus.BAD_REQUEST);
+        } catch (CertificateException e) {
+            return new ResponseEntity("Error processing the certificate", HttpStatus.BAD_REQUEST);
+        }
+
     }
 //    @PostMapping("api/certs/issue")
 //    public ResponseEntity issueCertificate(@RequestBody CertificateContract contract){

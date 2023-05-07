@@ -130,8 +130,6 @@ public class CertificateGeneratorService {
                 PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
                 issuerPrivateKey = keyFactory.generatePrivate(keySpec);
 
-                // TODO  RSA private key read
-
             } else {
                 throw new Exception("Certificate " + issuerSN + " not found");
             }
