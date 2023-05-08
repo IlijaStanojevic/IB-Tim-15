@@ -42,13 +42,13 @@ public class WebSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 //		http.cors().and();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		http.cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.csrf().disable().authorizeHttpRequests((requests) -> requests
 						.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
 						.requestMatchers(new AntPathRequestMatcher("/api/user/login")).permitAll()
 						.requestMatchers(new AntPathRequestMatcher("/api/user/signup")).permitAll()
-						.anyRequest().authenticated());
+						.anyRequest().authenticated()).cors();
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); //JWT procesiramo pre autentikacije
 		http.headers().frameOptions().sameOrigin();
 		http.authenticationProvider(authenticationProvider());
