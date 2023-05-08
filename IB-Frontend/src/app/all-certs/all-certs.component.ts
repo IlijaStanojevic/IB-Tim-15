@@ -37,6 +37,9 @@ export class AllCertsComponent implements OnInit {
       console.log(error);
 
     }))
+    if (!!response){
+      this.certificates = response;
+    }
   }
   ngOnInit() {
     this.loadCertificates();
