@@ -56,6 +56,7 @@ public class UserService implements UserDetailsService {
         u.setPhoneNum(userRequest.getPhoneNum());
         u.setRole(User.UserRole.ROLE_USER);
         u.setEnabled(false);
+        u.setActivationCode(null);
         return userRepository.save(u);
     }
 
