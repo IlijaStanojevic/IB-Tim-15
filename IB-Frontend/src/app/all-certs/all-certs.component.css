@@ -1,0 +1,22 @@
+.certificate-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.certificate-table th,
+.certificate-table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.certificate-table th {
+  background-color: #f2f2f2;
+}
+
+.certificate-table td {
+  border-bottom: 1px solid #ddd;
+}
+
+.certificate-table .center {
+  text-align: center;
+}

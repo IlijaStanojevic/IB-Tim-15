@@ -1,1 +1,23 @@
-<p>all-certs works!</p>
+<h1>Certificates</h1>
+<table class="certificate-table">
+  <thead>
+  <tr>
+    <th>Serial Number</th>
+    <th>From</th>
+    <th>To</th>
+    <th>Type</th>
+    <th>Owner</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let certificate of certificates">
+    <td>{{ certificate.serialNumber }}</td>
+    <td>{{ certificate.validFrom }}</td>
+    <td>{{ certificate.validTo }}</td>
+    <td>{{ certificate.type }}</td>
+    <td>{{ certificate.owner }}</td>
+    <button>Download</button>
+  </tr>
+  </tbody>
+</table>
