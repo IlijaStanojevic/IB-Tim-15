@@ -7,11 +7,8 @@ export class ConfigServiceService {
   private _api_url = 'http://localhost:8080/api';
   private _auth_url = 'http://localhost:8080/api/user';
   private _user_url = this._api_url + '/user';
-  private _driver_signup_url = 'http://localhost:8080/api/driver';
 
-  get driver_signup_url(): string{
-    return this._driver_signup_url
-  }
+  private _certs_url = 'http://localhost:8080/api/certs'
   private _login_url = this._auth_url + '/login';
   private _driver_url = this._api_url + '/driver/'
 
@@ -35,6 +32,9 @@ export class ConfigServiceService {
 
   get signup_url(): string {
     return this._signup_url;
+  }
+  getAllCertificates(){
+    return this._certs_url;
   }
 
 

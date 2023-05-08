@@ -51,16 +51,7 @@ export class AuthServiceService {
       }));
   }
 
-  signup_driver(user:any) {
-    const signupHeaders = new HttpHeaders({
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    });
-    return this.apiService.post(this.config.driver_signup_url, JSON.stringify(user), signupHeaders)
-      .pipe(map(() => {
-        console.log('Sign up success');
-      }));
-  }
+
 
   logout() {
     this.userService.currentUser = null;
