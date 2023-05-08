@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../user.service";
-import {AuthServiceService} from "../auth-service.service";
+import {UserService} from "../service/user.service";
+import {AuthServiceService} from "../service/auth-service.service";
 import {Subject} from "rxjs";
 
 @Component({
@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit{
     this.authService.login(this.form.value)
       .subscribe(data => {
         console.log(localStorage.getItem("jwt"));
+        this.router.navigate([""])
       });
   }
 }

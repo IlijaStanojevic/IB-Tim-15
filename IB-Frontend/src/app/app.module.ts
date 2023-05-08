@@ -8,9 +8,9 @@ import {HomeComponent} from './home/home.component';
 import {RegisterComponent} from './register/register.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from "./interceptor/TokenInterceptor";
-import {AuthServiceService} from "./auth-service.service";
-import {ConfigServiceService} from "./config-service.service";
-import {UserService} from "./user.service";
+import {AuthServiceService} from "./service/auth-service.service";
+import {ConfigServiceService} from "./service/config-service.service";
+import {UserService} from "./service/user.service";
 import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
