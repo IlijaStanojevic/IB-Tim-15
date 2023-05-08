@@ -12,13 +12,21 @@ import {AuthServiceService} from "./service/auth-service.service";
 import {ConfigServiceService} from "./service/config-service.service";
 import {UserService} from "./service/user.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import { GenerateCertComponent } from './generate-cert/generate-cert.component';
+import { RequestsComponent } from './requests/requests.component';
+import { MyCertsComponent } from './my-certs/my-certs.component';
+import { AllCertsComponent } from './all-certs/all-certs.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    GenerateCertComponent,
+    RequestsComponent,
+    MyCertsComponent,
+    AllCertsComponent
   ],
   imports: [
     BrowserModule,
