@@ -16,6 +16,7 @@ import { GenerateCertComponent } from './generate-cert/generate-cert.component';
 import { RequestsComponent } from './requests/requests.component';
 import { MyCertsComponent } from './my-certs/my-certs.component';
 import { AllCertsComponent } from './all-certs/all-certs.component';
+import {CertificateService} from "./service/certificate.service";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AllCertsComponent } from './all-certs/all-certs.component';
     AuthServiceService,
     AuthServiceService,
     ConfigServiceService,
-    UserService
+    UserService,
+    CertificateService
   ],
   bootstrap: [AppComponent]
 })

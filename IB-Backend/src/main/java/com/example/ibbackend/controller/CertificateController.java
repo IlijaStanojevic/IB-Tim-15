@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(maxAge = 3600)
 public class CertificateController {
     @Autowired
     private CertificateGeneratorService generatorService;
@@ -50,44 +51,46 @@ public class CertificateController {
 
 
     @GetMapping("/api/certs")
-    public List<CertificateShortDTO> getAll(Authentication authentication){
-
-        Optional<User> sub = userService.getByEmail(authentication.getName());
-        if(Objects.equals(sub.get().getRole().toString(), "ROLE_ADMIN")) {
-            return certificateRepository.findAll().stream()
-                    .map(c -> new CertificateShortDTO(c.getValidFrom(), c.getType(), c.getUsername()))
-                    .collect(Collectors.toList());
-        }else{
-            return certificateRepository.findAllByUsername(sub.get().getEmail()).stream()
-                    .map(c -> new CertificateShortDTO(c.getValidFrom(), c.getType(), c.getUsername()))
-                    .collect(Collectors.toList());
-        }
+    public List<CertificateShortDTO> getAll() {
+        return certificateRepository.findAll().stream()
+                .map(c -> new CertificateShortDTO(c.getSerialNumber(), c.getValidFrom(), c.getValidTo(), c.getType(), c.getUsername()))
+                .collect(Collectors.toList());
     }
+    @GetMapping("/api/certs/mycerts")
+    public List<CertificateShortDTO> getMyCerts(Authentication authentication) {
+        return certificateRepository.findAllByUsername(authentication.getName()).stream()
+                .map(c -> new CertificateShortDTO(c.getSerialNumber(), c.getValidFrom(), c.getValidTo(), c.getType(), c.getUsername()))
+                .collect(Collectors.toList());
+    }
+
+
     @GetMapping("/api/certs/{id}/download")
-    public ResponseEntity downloadCert(@PathVariable String id){
-        if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()){
+    public ResponseEntity downloadCert(@PathVariable String id) {
+        if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()) {
             return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
         }
         return null;
     }
+
     @GetMapping("/api/certs/{id}/validate")
-    public ResponseEntity validateSerialNumber(@PathVariable String id){
-        if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()){
+    public ResponseEntity validateSerialNumber(@PathVariable String id) {
+        if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()) {
             return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
         }
-        if (!generatorService.validateCertificate(id)){
+        if (!generatorService.validateCertificate(id)) {
             return new ResponseEntity(id + " is not valid", HttpStatus.BAD_REQUEST);
-        }else{
+        } else {
             return new ResponseEntity(id + " is valid", HttpStatus.OK);
         }
     }
+
     @PostMapping("/api/certs/validate/upload")
-    public ResponseEntity validateUploadedFile(@RequestParam("file")MultipartFile file){
+    public ResponseEntity validateUploadedFile(@RequestParam("file") MultipartFile file) {
         try {
             String serialNumber = generatorService.getSerialNumberFromFile(file);
-            if (!generatorService.validateCertificate(serialNumber)){
+            if (!generatorService.validateCertificate(serialNumber)) {
                 return new ResponseEntity(serialNumber + " is not valid", HttpStatus.BAD_REQUEST);
-            }else{
+            } else {
                 return new ResponseEntity(serialNumber + " is valid", HttpStatus.OK);
             }
         } catch (IOException e) {
@@ -109,22 +112,22 @@ public class CertificateController {
 //    }
 
     @PostMapping("/api/certs/request")
-    public ResponseEntity requestCertificate(@RequestBody CertificateRequest request, Authentication auth){
-        try{
-            if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+    public ResponseEntity requestCertificate(@RequestBody CertificateRequest request, Authentication auth) {
+        try {
+            if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
                 requestsService.addRequest(request, true);
                 Certificate certificate = generatorService.issueCertificate(request.getContract().getIssuerSN(), request.getContract().getSubjectEmail()
                         , request.getContract().getKeyUsageFlags(), request.getContract().getDate());
                 return new ResponseEntity(request, HttpStatus.OK);
-            }else{
-                if (request.calculateType() == Certificate.CertificateType.Root){
+            } else {
+                if (request.calculateType() == Certificate.CertificateType.Root) {
                     return new ResponseEntity("Non admin users cannot create root certs", HttpStatus.BAD_REQUEST);
                 }
                 Optional<Certificate> targetedCert = certificateRepository.findCertificateBySerialNumber(request.getContract().getIssuerSN());
-                if (targetedCert.isEmpty()){
+                if (targetedCert.isEmpty()) {
                     return new ResponseEntity("Non existent issuer serial number", HttpStatus.NOT_FOUND);
                 }
-                if (requestsService.addRequest(request, false)){
+                if (requestsService.addRequest(request, false)) {
                     Certificate certificate = generatorService.issueCertificate(request.getContract().getIssuerSN(), request.getContract().getSubjectEmail()
                             , request.getContract().getKeyUsageFlags(), request.getContract().getDate());
                 }
@@ -132,7 +135,7 @@ public class CertificateController {
                 return new ResponseEntity(request, HttpStatus.OK);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
