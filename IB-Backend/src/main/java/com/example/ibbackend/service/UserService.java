@@ -55,6 +55,7 @@ public class UserService implements UserDetailsService {
         u.setEmail(userRequest.getEmail());
         u.setPhoneNum(userRequest.getPhoneNum());
         u.setRole(User.UserRole.ROLE_USER);
+        u.setEnabled(false);
         return userRepository.save(u);
     }
 

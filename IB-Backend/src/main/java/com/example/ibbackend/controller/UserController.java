@@ -46,6 +46,9 @@ public class UserController {
 
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             Optional<User> user = userService.getByEmail(userDetails.getUsername());
+            if (!user.get().isEnabled()){
+                return new ResponseEntity("Please activate your account by email/phone first!", HttpStatus.BAD_REQUEST);
+            }
             String jwt = tokenUtil.generateToken(userDetails.getUsername(), user.get().getRole().toString());
             Date expiresIn = tokenUtil.getExpirationDateFromToken(jwt);
 

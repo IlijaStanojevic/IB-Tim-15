@@ -26,6 +26,12 @@ public class User implements UserDetails {
 
     private String surname;
     private String phoneNum;
+    private boolean isEnabled;
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
     @Enumerated(EnumType.STRING)
     private UserRole role;
     public enum UserRole{
@@ -176,7 +182,7 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
 //        throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
-        return true;
+        return isEnabled;
     }
 
 }

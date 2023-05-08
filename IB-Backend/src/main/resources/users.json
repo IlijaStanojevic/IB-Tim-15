@@ -1,56 +1,37 @@
 [{
   "_id": {
-    "$oid": "6428324654802d69e9c0727b"
+    "$oid": "64592dc0d3fe3157921b03a5"
   },
-  "email": "ooo1121111122",
+  "email": "asojgjhag",
   "name": "Bob",
   "surname": "Bobski",
   "phoneNum": "123125125152",
+  "isEnabled": true,
   "role": "ROLE_USER",
-  "password": "$2a$10$X14sTqX2lRQT7TIc0ojUYebWNFig2C8NXHGU/01sHNf5zbRVo5uua",
+  "password": "$2a$10$2hboK0HRwEw/0ijeiGVk9OG7YJ0.5.bgChTYdddm5sn0MX.Qx63Yq",
   "_class": "com.example.ibbackend.model.User"
 },{
   "_id": {
-    "$oid": "6428324e54802d69e9c0727c"
-  },
-  "email": "oooo",
-  "name": "Bob",
-  "surname": "Bobski",
-  "phoneNum": "123125125152",
-  "role": "ROLE_USER",
-  "password": "$2a$12$mja.jEYecSIoJ4g4G/meueYxTEjdAbQopGPDECHt/IavR5lO0RiS2",
-  "_class": "com.example.ibbackend.model.User"
-},{
-  "_id": {
-    "$oid": "6428325054802d69e9c0727d"
-  },
-  "email": "aaa",
-  "name": "Bob",
-  "surname": "Bobski",
-  "phoneNum": "123125125152",
-  "role": "ROLE_USER",
-  "password": "$2a$10$.8ZvnSnY9vdMHy0BsI7MXu5Thoyd7B9uo27pU1Iukfvm7163odnLS",
-  "_class": "com.example.ibbackend.model.User"
-},{
-  "_id": {
-    "$oid": "6428325354802d69e9c0727e"
-  },
-  "email": "aaaa",
-  "name": "Bob",
-  "surname": "Bobski",
-  "phoneNum": "123125125152",
-  "role": "ROLE_USER",
-  "password": "$2a$10$.MigWYpT/DwhLy4QsmQ5/uJRwEF6EMydTeAG61hXgx7eyBClF5rta",
-  "_class": "com.example.ibbackend.model.User"
-},{
-  "_id": {
-    "$oid": "6428326854802d69e9c0727f"
+    "$oid": "64592e4592e8fa445e424521"
   },
   "email": "admin",
-  "name": "admin",
-  "surname": "admin",
+  "name": "Bob",
+  "surname": "Bobski",
   "phoneNum": "123125125152",
+  "isEnabled": true,
   "role": "ROLE_ADMIN",
-  "password": "$2a$10$sVmKk4aF/QkmamT6fUeO8e7M8v29g6sYir8spfMr4Qz1u/LI0snHi",
+  "password": "$2a$10$3RwSwb67qpivGQFXi2qLhOTQW4bj/VxjYR4q.CPvQFTVsvmQuZy5.",
+  "_class": "com.example.ibbackend.model.User"
+},{
+  "_id": {
+    "$oid": "64592e6ba63c52372abc1af3"
+  },
+  "email": "123",
+  "name": "Bob",
+  "surname": "Bobski",
+  "phoneNum": "123125125152",
+  "isEnabled": false,
+  "role": "ROLE_USER",
+  "password": "$2a$10$eD0735gyhHWWIqjSAAjEUeupifSAynLywSCA7hMkZBQZXcAxKTjv.",
   "_class": "com.example.ibbackend.model.User"
 }]
