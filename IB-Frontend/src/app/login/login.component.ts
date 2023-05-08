@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../user.service";
@@ -10,7 +10,7 @@ import {Subject} from "rxjs";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   title = 'Login';
   form!: FormGroup;
   constructor(
@@ -30,10 +30,10 @@ export class LoginComponent {
     });
   }
   onSubmit() {
-    console.log(":D")
+    console.log(this.form.value)
     this.authService.login(this.form.value)
       .subscribe(data => {
-        console.log(data);
+        console.log(localStorage.getItem("jwt"));
       });
   }
 }
