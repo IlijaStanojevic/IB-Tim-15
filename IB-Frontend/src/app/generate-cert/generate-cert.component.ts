@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-generate-cert',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./generate-cert.component.css']
 })
 export class GenerateCertComponent {
+  form!: FormGroup;
 
+  onSubmit() {
+
+  }
 }
