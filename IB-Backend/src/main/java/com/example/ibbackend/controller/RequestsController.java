@@ -19,6 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(maxAge = 3600)
 public class RequestsController {
     @Autowired
     private CertificateGeneratorService generatorService;

@@ -5,14 +5,34 @@ import com.example.ibbackend.model.Certificate;
 import java.time.LocalDate;
 
 public class CertificateShortDTO {
+    private String serialNumber;
     private LocalDate validFrom;
+    private LocalDate validTo;
     private Certificate.CertificateType type;
-    private String username;
+    private String owner;
 
-    public CertificateShortDTO(LocalDate validFrom, Certificate.CertificateType type, String username) {
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public LocalDate getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(LocalDate validTo) {
+        this.validTo = validTo;
+    }
+
+    public CertificateShortDTO(String serialNumber, LocalDate validFrom, LocalDate validTo, Certificate.CertificateType type, String owner) {
+        this.serialNumber = serialNumber;
         this.validFrom = validFrom;
+        this.validTo = validTo;
         this.type = type;
-        this.username = username;
+        this.owner = owner;
     }
 
     public LocalDate getValidFrom() {
@@ -31,11 +51,11 @@ public class CertificateShortDTO {
         this.type = type;
     }
 
-    public String getUsername() {
-        return username;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
