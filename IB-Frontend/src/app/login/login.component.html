@@ -1,6 +1,6 @@
 <h1>Welcome, please login!</h1>
 <div>
-  <form>
+  <form (ngSubmit)="onSubmit()"  [formGroup]="form" >
     <p>
       <input id="email" type="text">
     </p>
@@ -11,7 +11,7 @@
 
     <button type="submit">LOGIN</button>
     <p>
-      <p> no account? <a>sign up</a>
+      <p> no account? <a routerLink="/signup">sign up</a>
     </p>
   </form>
 </div>
