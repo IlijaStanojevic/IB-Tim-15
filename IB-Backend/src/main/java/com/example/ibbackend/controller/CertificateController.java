@@ -14,6 +14,8 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 import org.bouncycastle.jcajce.provider.asymmetric.x509.CertificateFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -65,12 +68,16 @@ public class CertificateController {
 
 
     @GetMapping("/api/certs/{id}/download")
-    public ResponseEntity downloadCert(@PathVariable String id) {
+    public ResponseEntity downloadCert(@PathVariable String id) throws FileNotFoundException, CertificateException {
         if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()) {
             return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
         }
-        return null;
-    }
+        FileSystemResource fsr = generatorService.downloadCertificate(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", id + ".crt");
+        return ResponseEntity.ok().headers(headers).body(fsr);
+    }// TODO add private key downloading
 
     @GetMapping("/api/certs/{id}/validate")
     public ResponseEntity validateSerialNumber(@PathVariable String id) {
