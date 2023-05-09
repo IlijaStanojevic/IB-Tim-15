@@ -89,7 +89,6 @@ public class CertificateController {
             return new ResponseEntity("Certificate already cancelled", HttpStatus.BAD_REQUEST);
         }
         if (certToCancel.get().getUsername().equals(authentication.getName()) || authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
-            certToCancel.get().setValid(false);
             generatorService.cancelCertificate(certToCancel.get());
         }else{
             return new ResponseEntity("Not your certificate", HttpStatus.UNAUTHORIZED);
