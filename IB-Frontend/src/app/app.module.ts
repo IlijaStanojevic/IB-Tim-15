@@ -17,6 +17,7 @@ import { RequestsComponent } from './requests/requests.component';
 import { MyCertsComponent } from './my-certs/my-certs.component';
 import { AllCertsComponent } from './all-certs/all-certs.component';
 import {CertificateService} from "./service/certificate.service";
+import { MessageModalComponent } from './message-modal/message-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {CertificateService} from "./service/certificate.service";
     GenerateCertComponent,
     RequestsComponent,
     MyCertsComponent,
-    AllCertsComponent
+    AllCertsComponent,
+    MessageModalComponent
   ],
     imports: [
         BrowserModule,

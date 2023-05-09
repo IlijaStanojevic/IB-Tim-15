@@ -1,11 +1,14 @@
 package com.example.ibbackend.controller;
 
+import com.example.ibbackend.dto.ActivationDTO;
 import com.example.ibbackend.dto.JwtAuthenticationRequest;
 import com.example.ibbackend.dto.LoginResponse;
 import com.example.ibbackend.dto.UserRequest;
 import com.example.ibbackend.model.User;
 import com.example.ibbackend.security.jwt.JwtTokenUtil;
 import com.example.ibbackend.service.UserService;
+import com.example.ibbackend.service.email.EmailSenderService;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,7 +32,8 @@ public class UserController {
     @Autowired
     private JwtTokenUtil tokenUtil;
 
-
+    @Autowired
+    private EmailSenderService emailSenderService;
     @Autowired
     private UserService userService;
 
@@ -75,7 +79,20 @@ public class UserController {
         }
 
         User user = this.userService.save(userRequest);
-
+        emailSenderService.sendSimpleEmail(user.getEmail(), user.getActivationCode());
         return new ResponseEntity<>("Successful sign up!", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/api/user/activate")
+    public ResponseEntity activatePassenger(@RequestBody ActivationDTO activationDTO){
+        if(userService.getByEmail(activationDTO.getEmail()).isEmpty()){
+            return new ResponseEntity<>("Email does not exist!", HttpStatus.BAD_REQUEST);
+        }
+
+        if(userService.activateUser(activationDTO.getEmail(), String.valueOf(activationDTO.getActivationCode()))){
+            return new ResponseEntity<>("Account verified!", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Wrong verification code!", HttpStatus.BAD_REQUEST);
+        }
     }
 }

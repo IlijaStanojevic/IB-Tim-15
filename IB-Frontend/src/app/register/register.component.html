@@ -1,1 +1,41 @@
-<p>register works!</p>
+<div class="container" >
+    <div class = "row w-100 vh-100 justify-content-center align-items-center">
+        <div class = "auth-box">
+            <div *ngIf="!isConfirm">
+
+                <div class="header">
+                    <h2>Register</h2>
+                    <h4>Register your account using below information</h4>
+                </div>
+
+                <div class="form">
+                    <input type="text" name="name" [(ngModel)]="user.name" placeholder="First Name">
+                    <input type="text" name="surname" [(ngModel)]="user.surname" placeholder="Last Name">
+                    <input type="text" name="phoneNum" [(ngModel)]="user.phoneNum" placeholder="Phone number">
+                    <input type="email" name="email" [(ngModel)]="user.email" placeholder="Email Address" autocomplete="off">
+                    <input [type]="user.showPassword ? 'text' : 'password'" name="password" placeholder="Password" [(ngModel)] = "user.password">
+                    <div style="font-size: 12px; margin:8px 0;">
+                        <input type="checkbox" [checked]="user.showPassword" (change)="user.showPassword = !user.showPassword">
+                        Show Password
+                    </div>
+                    <p>Already a member? <a href="/login">Sign in</a></p>
+                    <button (click) = "createUser()">REGISTER</button>
+                </div>
+            </div>
+
+            <div *ngIf="isConfirm">
+                <div class="header">
+                    <h2>Enter Code</h2>
+                    <h4 style="color: green;">A verification Code sent to {{user.email}}</h4>
+                </div>
+
+                <div class="form">
+                    <input type="text" name="verificationCode" placeholder="Enter verification code" [(ngModel)]="code">
+                    <button (click)="activateUser()">CONFIRM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-message-modal *ngIf="showAlert" (modalClose)="showAlert=false" [message]="alertMessage"></app-message-modal>

@@ -48,6 +48,7 @@ public class WebSecurityConfiguration {
 						.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
 						.requestMatchers(new AntPathRequestMatcher("/api/user/login")).permitAll()
 						.requestMatchers(new AntPathRequestMatcher("/api/user/signup")).permitAll()
+						.requestMatchers(new AntPathRequestMatcher("/api/user/activate")).permitAll()
 						.anyRequest().authenticated()).cors();
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); //JWT procesiramo pre autentikacije
 		http.headers().frameOptions().sameOrigin();

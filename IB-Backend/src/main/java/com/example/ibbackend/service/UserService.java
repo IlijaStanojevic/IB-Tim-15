@@ -12,9 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.io.Console;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,7 +55,9 @@ public class UserService implements UserDetailsService {
         u.setPhoneNum(userRequest.getPhoneNum());
         u.setRole(User.UserRole.ROLE_USER);
         u.setEnabled(false);
-        u.setActivationCode(null);
+        var rng = new Random();
+        int code = rng.nextInt(900000) + 100000;
+        u.setActivationCode(String.valueOf(code));
         return userRepository.save(u);
     }
 
@@ -65,5 +66,17 @@ public class UserService implements UserDetailsService {
     }
     private static Collection<? extends GrantedAuthority> getAuthorities(List<User.UserRole> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
+    }
+
+    public boolean activateUser(String email, String activationCode){
+        User ret = userRepository.findUserByEmail(email).orElse(null);
+        if(Objects.equals(ret.getActivationCode(), activationCode)){
+            ret.setEnabled(true);
+            userRepository.save(ret);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }
