@@ -20,6 +20,7 @@ import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,7 @@ import javax.security.auth.x500.X500Principal;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -75,6 +77,10 @@ public class CertificateGeneratorService {
                 return false;
             }
         }
+    }
+    public  FileSystemResource downloadCertificate(String serialNumber) throws FileNotFoundException, CertificateException {
+        String path = System.getProperty("user.dir") + certDir + "/" + serialNumber + ".crt";
+        return new FileSystemResource(path);
     }
     public String getSerialNumberFromFile(MultipartFile file) throws IOException, CertificateException {
         byte[] fileBytes = file.getBytes();
@@ -230,5 +236,10 @@ public class CertificateGeneratorService {
         X509Certificate generatedCertificate = new JcaX509CertificateConverter().setProvider(new BouncyCastleProvider())
                 .getCertificate(certHolder);
         return generatedCertificate;
+    }
+    // TODO add cancelling all children based on cert
+    public void cancelCertificate(Certificate certificate) {
+        certificate.setValid(false);
+        certificateRepository.save(certificate);
     }
 }

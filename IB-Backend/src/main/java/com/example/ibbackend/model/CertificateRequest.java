@@ -1,7 +1,6 @@
 package com.example.ibbackend.model;
 
 import com.example.ibbackend.dto.CertificateContract;
-import com.example.ibbackend.model.Certificate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

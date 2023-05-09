@@ -14,6 +14,8 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 import org.bouncycastle.jcajce.provider.asymmetric.x509.CertificateFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -65,13 +68,35 @@ public class CertificateController {
 
 
     @GetMapping("/api/certs/{id}/download")
-    public ResponseEntity downloadCert(@PathVariable String id) {
+    public ResponseEntity downloadCert(@PathVariable String id) throws FileNotFoundException, CertificateException {
         if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()) {
             return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
         }
-        return null;
-    }
+        FileSystemResource fsr = generatorService.downloadCertificate(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", id + ".crt");
+        return ResponseEntity.ok().headers(headers).body(fsr);
+    }// TODO add private key downloading
 
+    @PostMapping("/api/certs/{id}/cancel")
+    public ResponseEntity cancelCert(@PathVariable String id, Authentication authentication) throws FileNotFoundException, CertificateException {
+        Optional<Certificate> certToCancel = certificateRepository.findCertificateBySerialNumber(id);
+        if (certToCancel.isEmpty()) {
+            return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
+        }
+        if (!certToCancel.get().isValid()){
+            return new ResponseEntity("Certificate already cancelled", HttpStatus.BAD_REQUEST);
+        }
+        if (certToCancel.get().getUsername().equals(authentication.getName()) || authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+            certToCancel.get().setValid(false);
+            generatorService.cancelCertificate(certToCancel.get());
+        }else{
+            return new ResponseEntity("Not your certificate", HttpStatus.UNAUTHORIZED);
+        }
+
+        return new ResponseEntity("Certificate and all signed by it are cancelled!", HttpStatus.OK);
+    }
     @GetMapping("/api/certs/{id}/validate")
     public ResponseEntity validateSerialNumber(@PathVariable String id) {
         if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()) {
@@ -83,6 +108,7 @@ public class CertificateController {
             return new ResponseEntity(id + " is valid", HttpStatus.OK);
         }
     }
+
 
     @PostMapping("/api/certs/validate/upload")
     public ResponseEntity validateUploadedFile(@RequestParam("file") MultipartFile file) {

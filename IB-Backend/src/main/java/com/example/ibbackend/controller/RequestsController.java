@@ -2,6 +2,7 @@ package com.example.ibbackend.controller;
 
 import com.example.ibbackend.model.Certificate;
 import com.example.ibbackend.model.CertificateRequest;
+import com.example.ibbackend.model.User;
 import com.example.ibbackend.repository.CertificateRepository;
 import com.example.ibbackend.repository.RequestsRepository;
 import com.example.ibbackend.service.CertRequestsService;
@@ -35,7 +36,13 @@ public class RequestsController {
 
     @GetMapping("api/certs/requests")
     public ResponseEntity getAll(Authentication authentication){
-        List<CertificateRequest> certificateRequests = requestsService.findByRequester(authentication.getName());
+        List<CertificateRequest> certificateRequests;
+        if (authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+            certificateRequests = requestsService.findAll();
+        }else{
+            certificateRequests = requestsService.findByRequester(authentication.getName());
+        }
+
         return new ResponseEntity<>(certificateRequests, HttpStatus.OK);
     }
     @PutMapping("api/certs/{id}/accept")
