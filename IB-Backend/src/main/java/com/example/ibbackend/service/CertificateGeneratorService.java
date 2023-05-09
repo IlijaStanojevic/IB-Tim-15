@@ -247,4 +247,9 @@ public class CertificateGeneratorService {
             cancelCertificate(cert);
         }
     }
+
+    public FileSystemResource downloadKey(String serialNumber) {
+        String path = System.getProperty("user.dir") + certDir + "/" + serialNumber + ".key";
+        return new FileSystemResource(path);
+    }
 }

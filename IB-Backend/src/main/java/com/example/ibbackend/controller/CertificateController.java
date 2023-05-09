@@ -78,7 +78,20 @@ public class CertificateController {
         headers.setContentDispositionFormData("attachment", id + ".crt");
         return ResponseEntity.ok().headers(headers).body(fsr);
     }// TODO add private key downloading
-
+    @GetMapping("/api/keys/{id}/download")
+    public ResponseEntity downloadKey(@PathVariable String id, Authentication authentication) throws FileNotFoundException, CertificateException {
+        if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()) {
+            return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
+        }
+        if (!certificateRepository.findCertificateBySerialNumber(id).get().getUsername().equals(authentication.getName())){
+            return new ResponseEntity("Not your cert", HttpStatus.UNAUTHORIZED);
+        }
+        FileSystemResource fsr = generatorService.downloadKey(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", id + ".key");
+        return ResponseEntity.ok().headers(headers).body(fsr);
+    }
     @PostMapping("/api/certs/{id}/cancel")
     public ResponseEntity cancelCert(@PathVariable String id, Authentication authentication) throws FileNotFoundException, CertificateException {
         Optional<Certificate> certToCancel = certificateRepository.findCertificateBySerialNumber(id);
