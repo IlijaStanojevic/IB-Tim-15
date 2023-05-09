@@ -250,4 +250,76 @@
   "type": "End",
   "userWhoDecides": "oooo",
   "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "645a93368abe2e3ac6af2640"
+  },
+  "contract": {
+    "subjectEmail": "1234",
+    "keyUsageFlags": "1,3,5",
+    "issuerSN": "45361897262188110760541051532708821952",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "1234",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "645a93598abe2e3ac6af2641"
+  },
+  "contract": {
+    "subjectEmail": "1234",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "49814886395761781116170348809428163923",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "1234",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "Intermediate",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "645a93678abe2e3ac6af2642"
+  },
+  "contract": {
+    "subjectEmail": "1234",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "49814886395761781116170348809428163923",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "1234",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "Intermediate",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
+    "$oid": "645a939d8abe2e3ac6af2643"
+  },
+  "contract": {
+    "subjectEmail": "1234",
+    "keyUsageFlags": "1,3,5",
+    "issuerSN": "85909032913663394499122974762903222942",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "1234",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "End",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
 }]
