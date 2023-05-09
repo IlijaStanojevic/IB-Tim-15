@@ -1,5 +1,23 @@
 [{
   "_id": {
+    "$oid": "645a821eb251c460fc8a1383"
+  },
+  "contract": {
+    "subjectEmail": "1234",
+    "keyUsageFlags": "1,2,3,5",
+    "issuerSN": "49814886395761781116170348809428163923",
+    "date": {
+      "$date": "2023-06-01T10:00:00.000Z"
+    }
+  },
+  "requester": "1234",
+  "message": "Accepted for admin automatically",
+  "state": "ACCEPTED",
+  "type": "Intermediate",
+  "userWhoDecides": "admin",
+  "_class": "com.example.ibbackend.model.CertificateRequest"
+},{
+  "_id": {
     "$oid": "6429d58474e13d2817f285ae"
   },
   "contract": {
@@ -15,7 +33,7 @@
   "state": "ACCEPTED",
   "type": "End",
   "userWhoDecides": "oooo",
-  "_class": "com.example.IBBackend.model.CertificateRequest"
+  "_class": "com.example.ibbackend.model.CertificateRequest"
 },{
   "_id": {
     "$oid": "6429d58974e13d2817f285af"
@@ -33,7 +51,7 @@
   "state": "ACCEPTED",
   "type": "End",
   "userWhoDecides": "oooo",
-  "_class": "com.example.IBBackend.model.CertificateRequest"
+  "_class": "com.example.ibbackend.model.CertificateRequest"
 },{
   "_id": {
     "$oid": "642a652fd83e0e6cd9c1fdd4"
