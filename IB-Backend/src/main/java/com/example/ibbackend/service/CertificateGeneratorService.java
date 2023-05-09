@@ -242,6 +242,9 @@ public class CertificateGeneratorService {
     public void cancelCertificate(Certificate certificate) {
         certificate.setValid(false);
         certificateRepository.save(certificate);
-        List<Certificate> certs = certificateRepository.findCertificatesByIssuer(certificate.getIssuer());
+        List<Certificate> certs = certificateRepository.findCertificatesByIssuer(certificate.getSerialNumber());
+        for (Certificate cert :certs){
+            cancelCertificate(cert);
+        }
     }
 }

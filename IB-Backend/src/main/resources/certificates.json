@@ -88,4 +88,43 @@
   "type": "End",
   "username": "aaa",
   "_class": "com.example.ibbackend.model.Certificate"
+},{
+  "_id": "85909032913663394499122974762903222942",
+  "issuer": "49814886395761781116170348809428163923",
+  "validFrom": {
+    "$date": "2023-05-08T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "Intermediate",
+  "username": "1234",
+  "_class": "com.example.ibbackend.model.Certificate"
+},{
+  "_id": "45489733241939979639246773938681283710",
+  "issuer": "49814886395761781116170348809428163923",
+  "validFrom": {
+    "$date": "2023-05-08T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "Intermediate",
+  "username": "1234",
+  "_class": "com.example.ibbackend.model.Certificate"
+},{
+  "_id": "55108899186153258770483136746628508456",
+  "issuer": "85909032913663394499122974762903222942",
+  "validFrom": {
+    "$date": "2023-05-08T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-05-31T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "End",
+  "username": "1234",
+  "_class": "com.example.ibbackend.model.Certificate"
 }]
