@@ -237,4 +237,9 @@ public class CertificateGeneratorService {
                 .getCertificate(certHolder);
         return generatedCertificate;
     }
+    // TODO add cancelling all children based on cert
+    public void cancelCertificate(Certificate certificate) {
+        certificate.setValid(false);
+        certificateRepository.save(certificate);
+    }
 }

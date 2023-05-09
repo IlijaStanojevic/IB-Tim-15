@@ -79,6 +79,24 @@ public class CertificateController {
         return ResponseEntity.ok().headers(headers).body(fsr);
     }// TODO add private key downloading
 
+    @PostMapping("/api/certs/{id}/cancel")
+    public ResponseEntity cancelCert(@PathVariable String id, Authentication authentication) throws FileNotFoundException, CertificateException {
+        Optional<Certificate> certToCancel = certificateRepository.findCertificateBySerialNumber(id);
+        if (certToCancel.isEmpty()) {
+            return new ResponseEntity("Certificate not found", HttpStatus.NOT_FOUND);
+        }
+        if (!certToCancel.get().isValid()){
+            return new ResponseEntity("Certificate already cancelled", HttpStatus.BAD_REQUEST);
+        }
+        if (certToCancel.get().getUsername().equals(authentication.getName()) || authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+            certToCancel.get().setValid(false);
+            generatorService.cancelCertificate(certToCancel.get());
+        }else{
+            return new ResponseEntity("Not your certificate", HttpStatus.UNAUTHORIZED);
+        }
+
+        return new ResponseEntity("Certificate and all signed by it are cancelled!", HttpStatus.OK);
+    }
     @GetMapping("/api/certs/{id}/validate")
     public ResponseEntity validateSerialNumber(@PathVariable String id) {
         if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()) {
@@ -90,6 +108,7 @@ public class CertificateController {
             return new ResponseEntity(id + " is valid", HttpStatus.OK);
         }
     }
+
 
     @PostMapping("/api/certs/validate/upload")
     public ResponseEntity validateUploadedFile(@RequestParam("file") MultipartFile file) {
