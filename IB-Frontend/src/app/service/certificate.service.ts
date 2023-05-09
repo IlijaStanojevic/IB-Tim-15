@@ -16,6 +16,9 @@ export class CertificateService {
   getAllCertificates(){
     return this.apiService.get(this.config.getAllCertificates());
   }
+  getMyCertificates(){
+    return this.apiService.get(this.config.getMyCertificates());
+  }
   requestCertificate(){
     return this.apiService.get(this.config.requestCertificate());
   }

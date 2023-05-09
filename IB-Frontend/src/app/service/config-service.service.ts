@@ -36,6 +36,9 @@ export class ConfigServiceService {
   getAllCertificates(){
     return this._certs_url;
   }
+  getMyCertificates(){
+    return this._certs_url + "/mycerts";
+  }
   requestCertificate(){
     return this._certs_url + "/request";
   }
