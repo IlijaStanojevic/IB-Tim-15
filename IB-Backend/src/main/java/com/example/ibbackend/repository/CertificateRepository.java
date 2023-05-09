@@ -16,4 +16,5 @@ public interface CertificateRepository extends MongoRepository<Certificate, Long
     public Optional<Certificate> findCertificateBySerialNumber(String serialNumber);
 
     public List<Certificate> findAllByUsername(String email);
+    public List<Certificate> findCertificatesByIssuer(String issuer);
 }
