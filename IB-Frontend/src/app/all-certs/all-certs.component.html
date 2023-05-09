@@ -1,4 +1,20 @@
 <h1>Certificates</h1>
+
+  <form (ngSubmit)="onValidateInput()" [formGroup]="validateInput">
+    <p>
+      <label>Validate by serial number: </label>
+      <input formControlName="serialNumber" id="serialNumber" type="text" [(ngModel)]="serialNumber">
+    </p>
+    <button type="submit" [disabled]="!serialNumber">VALIDATE</button>
+  </form>
+<form (ngSubmit)="onValidateUpload()">
+  <p>
+    <label>Validate by copy: </label>
+    <input id="certCopy" type="file" (change)="handleFileUpload($event)" >
+  </p>
+  <button type="submit" [disabled]="!selectedFile">Upload and validate</button>
+</form>
+<p id="responseMessage">{{validateResponseMessage}}</p>
 <table class="certificate-table">
   <thead>
   <tr>

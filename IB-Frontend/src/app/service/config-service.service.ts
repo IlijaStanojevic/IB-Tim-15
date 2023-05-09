@@ -36,6 +36,15 @@ export class ConfigServiceService {
   getAllCertificates(){
     return this._certs_url;
   }
+  requestCertificate(){
+    return this._certs_url + "/request";
+  }
+  validateCertificateInput(serialNumber: string){
+    return this._certs_url + "/" + serialNumber + "/validate"
+  }
+  validateCertificateUpload(){
+    return this._certs_url + "/validate" + "/upload"
+  }
 
 
 }
