@@ -7,7 +7,8 @@ import {FormGroup} from "@angular/forms";
   styleUrls: ['./generate-cert.component.css']
 })
 export class GenerateCertComponent {
-  form!: FormGroup;
+  issuer: any;
+  date: any;
 
   onSubmit() {
 
