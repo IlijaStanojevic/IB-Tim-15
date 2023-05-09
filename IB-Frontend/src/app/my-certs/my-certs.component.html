@@ -1,1 +1,25 @@
-<p>my-certs works!</p>
+<h1>Cancel certs</h1>
+<table class="certificate-table">
+  <thead>
+  <tr>
+    <th>Serial Number</th>
+    <th>From</th>
+    <th>To</th>
+    <th>Type</th>
+    <th>Owner</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let certificate of certificates">
+    <td>{{ certificate.serialNumber }}</td>
+    <td>{{ certificate.validFrom }}</td>
+    <td>{{ certificate.validTo }}</td>
+    <td>{{ certificate.type }}</td>
+    <td>{{ certificate.owner }}</td>
+    <button>Cancel Cert</button>
+    <button>Download Key</button>
+  </tr>
+  </tbody>
+</table>
