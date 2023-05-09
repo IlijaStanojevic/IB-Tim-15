@@ -61,6 +61,11 @@ public class CertificateController {
     }
     @GetMapping("/api/certs/mycerts")
     public List<CertificateShortDTO> getMyCerts(Authentication authentication) {
+        if (authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+            return certificateRepository.findAll().stream()
+                    .map(c -> new CertificateShortDTO(c.getSerialNumber(), c.getValidFrom(), c.getValidTo(), c.getType(), c.getUsername()))
+                    .collect(Collectors.toList());
+        }
         return certificateRepository.findAllByUsername(authentication.getName()).stream()
                 .map(c -> new CertificateShortDTO(c.getSerialNumber(), c.getValidFrom(), c.getValidTo(), c.getType(), c.getUsername()))
                 .collect(Collectors.toList());
@@ -77,7 +82,7 @@ public class CertificateController {
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", id + ".crt");
         return ResponseEntity.ok().headers(headers).body(fsr);
-    }// TODO add private key downloading
+    }
     @GetMapping("/api/keys/{id}/download")
     public ResponseEntity downloadKey(@PathVariable String id, Authentication authentication) throws FileNotFoundException, CertificateException {
         if (certificateRepository.findCertificateBySerialNumber(id).isEmpty()) {
