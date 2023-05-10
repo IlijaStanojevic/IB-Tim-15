@@ -19,8 +19,8 @@ export class CertificateService {
   getMyCertificates(){
     return this.apiService.get(this.config.getMyCertificates());
   }
-  requestCertificate(){
-    return this.apiService.get(this.config.requestCertificate());
+  requestCertificate(request: any){
+    return this.apiService.post(this.config.requestCertificate(), request);
   }
   validateCertificateInput(serialNumber: string){
     return this.apiService.get(this.config.validateCertificateInput(serialNumber));
