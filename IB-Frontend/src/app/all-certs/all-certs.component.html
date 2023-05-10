@@ -33,7 +33,7 @@
     <td>{{ certificate.validTo }}</td>
     <td>{{ certificate.type }}</td>
     <td>{{ certificate.owner }}</td>
-    <button>Download</button>
+    <button (click)="downloadCertificate(certificate)">Download</button>
   </tr>
   </tbody>
 </table>
