@@ -1,9 +1,6 @@
 package com.example.ibbackend.controller;
 
-import com.example.ibbackend.dto.ActivationDTO;
-import com.example.ibbackend.dto.JwtAuthenticationRequest;
-import com.example.ibbackend.dto.LoginResponse;
-import com.example.ibbackend.dto.UserRequest;
+import com.example.ibbackend.dto.*;
 import com.example.ibbackend.model.User;
 import com.example.ibbackend.security.jwt.JwtTokenUtil;
 import com.example.ibbackend.service.UserService;
@@ -69,6 +66,11 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @GetMapping("/api/user/whoami")
+    public ResponseEntity whoAmI(Authentication authentication){
+        User user = userService.getByEmail(authentication.getName()).get();
+        return new ResponseEntity(new whoami(user.getEmail(), user.getName(), user.getSurname()), HttpStatus.OK);
+    }
     @PostMapping("/api/user/signup")
     public ResponseEntity addUser(@RequestBody UserRequest userRequest) {
         Optional<User> existUser = this.userService.getByEmail(userRequest.getEmail());
