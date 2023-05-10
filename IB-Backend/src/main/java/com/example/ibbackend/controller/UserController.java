@@ -86,7 +86,7 @@ public class UserController {
     }
 
     @PostMapping("/api/user/activate")
-    public ResponseEntity activatePassenger(@RequestBody ActivationDTO activationDTO){
+    public ResponseEntity activateUser(@RequestBody ActivationDTO activationDTO){
         if(userService.getByEmail(activationDTO.getEmail()).isEmpty()){
             return new ResponseEntity<>("Email does not exist!", HttpStatus.BAD_REQUEST);
         }
@@ -96,5 +96,37 @@ public class UserController {
         }else{
             return new ResponseEntity<>("Wrong verification code!", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/api/user/resetPasswordInit")
+    public ResponseEntity resetPasswordInit(@RequestBody JwtAuthenticationRequest authenticationRequest){
+        if(userService.getByEmail(authenticationRequest.getEmail()).isEmpty()){
+            return new ResponseEntity<>("Email does not exist!", HttpStatus.BAD_REQUEST);
+        }
+
+        User user = this.userService.resetPasswordInit(authenticationRequest.getEmail());
+        emailSenderService.sendSimpleEmail(user.getEmail(), user.getActivationCode());
+        return new ResponseEntity<>("E-mail sent!", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/api/user/checkCode")
+    public ResponseEntity checkCode(@RequestBody ActivationDTO activationDTO){
+        if(userService.getByEmail(activationDTO.getEmail()).isEmpty()){
+            return new ResponseEntity<>("Email does not exist!", HttpStatus.BAD_REQUEST);
+        }
+        if(this.userService.confirmActivation(activationDTO.getEmail(), activationDTO.getActivationCode())){
+            return new ResponseEntity<>("Code is correct!", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Code is incorrect!", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/api/user/resetPassword")
+    public ResponseEntity resetPassword(@RequestBody JwtAuthenticationRequest authenticationRequest){
+        if(userService.getByEmail(authenticationRequest.getEmail()).isEmpty()){
+            return new ResponseEntity<>("Email does not exist!", HttpStatus.BAD_REQUEST);
+        }
+        this.userService.resetPassword(authenticationRequest.getEmail(), authenticationRequest.getPassword());
+        return new ResponseEntity<>("Password resetted!", HttpStatus.OK);
     }
 }

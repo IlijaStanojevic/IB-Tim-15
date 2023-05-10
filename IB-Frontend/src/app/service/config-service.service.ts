@@ -49,5 +49,9 @@ export class ConfigServiceService {
     return this._certs_url + "/validate" + "/upload"
   }
 
+  getRequests(){
+    return this._certs_url + "/requests"
+  }
+
 
 }

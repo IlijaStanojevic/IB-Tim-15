@@ -1,1 +1,25 @@
-<p>requests works!</p>
+<h1>Requests</h1>
+
+<p id="responseMessage">{{validateResponseMessage}}</p>
+<table class="certificate-table">
+  <thead>
+  <tr>
+    <th>Requester</th>
+    <th>Message</th>
+    <th>State</th>
+    <th>Type</th>
+    <th>User who decides:</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let request of requests">
+    <td>{{ request.requester}}</td>
+    <td>{{ request.message}}</td>
+    <td>{{ request.state }}</td>
+    <td>{{ request.type }}</td>
+    <td>{{ request.userWhoDecides }}</td>
+    <button>Download</button>
+  </tr>
+  </tbody>
+</table>

@@ -18,6 +18,7 @@ import { MyCertsComponent } from './my-certs/my-certs.component';
 import { AllCertsComponent } from './all-certs/all-certs.component';
 import {CertificateService} from "./service/certificate.service";
 import { MessageModalComponent } from './message-modal/message-modal.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MessageModalComponent } from './message-modal/message-modal.component';
     RequestsComponent,
     MyCertsComponent,
     AllCertsComponent,
-    MessageModalComponent
+    MessageModalComponent,
+    ResetPasswordComponent
   ],
     imports: [
         BrowserModule,

@@ -1,17 +1,24 @@
-<h1>Welcome, please login!</h1>
-<div>
-  <form (ngSubmit)="onSubmit()"  [formGroup]="form" >
-    <p>
-      <input formControlName="email" id="email" type="text">
-    </p>
-    <p>
-      <input formControlName="password"  id="password" type="password">
-    </p>
+<div class="container" *ngIf="user">
+  <div class = "row w-100 vh-100 justify-content-center align-items-center">
+      <div class = "auth-box">
 
+              <div class="header">
+                  <h2>Login</h2>
+                  <h4>Login to your account using below information</h4>
+              </div>
 
-    <button type="submit">LOGIN</button>
-    <p>
-      <p> no account? <a routerLink="/signup">sign up</a>
-    </p>
-  </form>
+              <div class="form">
+                <input class="element" name="username" type="text" [(ngModel)]="user.email" placeholder="E-mail">
+                <input class="element" name="password" type="password" [(ngModel)]="user.password" placeholder="Password">
+                <button class="element" type="submit" (click)="onSubmit()">Sign in</button>
+                <br>
+                <br>
+                <p><a href="/reset-password">Forgot password?</a></p>
+                <label class="element">Don't have an account?</label>
+                <button class="signUpElement" (click)="SignUp()">Sign up!</button>
+              </div>
+      </div>
+  </div>
 </div>
+
+<app-message-modal *ngIf="showAlert" (modalClose)="showAlert=false" [message]="alertMessage"></app-message-modal>

@@ -49,6 +49,9 @@ public class WebSecurityConfiguration {
 						.requestMatchers(new AntPathRequestMatcher("/api/user/login")).permitAll()
 						.requestMatchers(new AntPathRequestMatcher("/api/user/signup")).permitAll()
 						.requestMatchers(new AntPathRequestMatcher("/api/user/activate")).permitAll()
+						.requestMatchers(new AntPathRequestMatcher("/api/user/checkCode")).permitAll()
+						.requestMatchers(new AntPathRequestMatcher("/api/user/resetPasswordInit")).permitAll()
+						.requestMatchers(new AntPathRequestMatcher("/api/user/resetPassword")).permitAll()
 						.anyRequest().authenticated()).cors();
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); //JWT procesiramo pre autentikacije
 		http.headers().frameOptions().sameOrigin();

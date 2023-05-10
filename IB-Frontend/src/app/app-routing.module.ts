@@ -8,6 +8,7 @@ import {AllCertsComponent} from "./all-certs/all-certs.component";
 import {GenerateCertComponent} from "./generate-cert/generate-cert.component";
 import {RequestsComponent} from "./requests/requests.component";
 import {MyCertsComponent} from "./my-certs/my-certs.component";
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [{
   path: 'login',
@@ -16,6 +17,9 @@ const routes: Routes = [{
   path: "",
   component: HomeComponent,
   canActivate: [AuthGuard]
+},{
+  path: "reset-password",
+  component: ResetPasswordComponent,
 },{
   path: "signup",
   component: RegisterComponent

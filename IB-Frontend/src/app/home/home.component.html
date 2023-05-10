@@ -1,14 +1,8 @@
-<p>home works!</p>
-<p>
-  <a routerLink="certificates">certs</a>
-</p>
-<p>
-  <a routerLink="generate">generate cert</a>
-</p>
-<p>
-  <a routerLink="myCerts">cancel cert</a>
-</p>
-<p>
-  <a routerLink="requests">requests</a>
-</p>
-<button (click)="logout()">Logout</button>
+<ul>
+  <li><a routerLink="certificates">Certificates</a></li>
+  <li><a routerLink="generate">Generate certificate</a></li>
+  <li><a routerLink="myCerts">Cancel certificate</a></li>
+  <li><a routerLink="requests">Requests</a></li>
+  <li><a (click)="logout()">Logout</a></li>
+</ul>
+

@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../service/user.service";
+import {Router} from "@angular/router";
 import {AuthServiceService} from "../service/auth-service.service";
-import {Subject} from "rxjs";
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-login',
@@ -11,30 +9,29 @@ import {Subject} from "rxjs";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
+  user:User | undefined;
   title = 'Login';
-  form!: FormGroup;
+  showAlert: boolean = false;
+  alertMessage: string = "";
   constructor(
-    private userService: UserService,
     private authService: AuthServiceService,
     private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder
-
   ) { }
   submitted = false;
   returnUrl!: string;
   ngOnInit(){
-    this.form = this.formBuilder.group({
-      email: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(64)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(32)])]
-    });
+    this.user = {} as User;
   }
   onSubmit() {
-    console.log(this.form.value)
-    this.authService.login(this.form.value)
+    this.authService.login(this.user)
       .subscribe(data => {
         console.log(localStorage.getItem("jwt"));
         this.router.navigate([""])
       });
+  }
+
+  SignUp()
+  {
+    this.router.navigate(["/signup"]);
   }
 }

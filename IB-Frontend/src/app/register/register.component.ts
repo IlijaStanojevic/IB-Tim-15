@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterComponent {
   alertMessage:string = '';
   code:string;
 
-  constructor(private http:HttpClient){
+  constructor(private http:HttpClient, private router: Router){
     
     }
 
@@ -47,6 +48,7 @@ export class RegisterComponent {
         if(res == "Account verified!"){
           this.alertMessage = "Account activated successfully!";
           this.showAlert = true;
+          this.router.navigate(["/login"]);
         }else{
           this.alertMessage = "Wrong code, try again!";
           this.showAlert = true;

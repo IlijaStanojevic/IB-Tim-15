@@ -77,6 +77,28 @@ public class UserService implements UserDetailsService {
         }else{
             return false;
         }
+    }
 
+    public User resetPasswordInit(String email){
+        User ret = userRepository.findUserByEmail(email).orElse(null);
+        var rng = new Random();
+        ret.setActivationCode(String.valueOf(rng.nextInt(900000) + 100000));
+        userRepository.save(ret);
+        return ret;
+    }
+
+    public boolean confirmActivation(String email, String activationCode){
+        User ret = userRepository.findUserByEmail(email).orElse(null);
+        if(Objects.equals(ret.getActivationCode(), activationCode)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void resetPassword(String email, String password){
+        User ret = userRepository.findUserByEmail(email).orElse(null);
+        ret.setPassword(passwordEncoder.encode(password));
+        userRepository.save(ret);
     }
 }
