@@ -19,7 +19,7 @@
     <td>{{ certificate.type }}</td>
     <td>{{ certificate.owner }}</td>
     <button>Cancel Cert</button>
-    <button>Download Key</button>
+    <button (click)="downloadKey(certificate.serialNumber)">Download Key</button>
   </tr>
   </tbody>
 </table>
