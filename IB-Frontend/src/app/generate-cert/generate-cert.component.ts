@@ -39,7 +39,7 @@ export class GenerateCertComponent {
         "contract": {
           "subjectEmail": email,
           "keyUsageFlags": this.loadFlags().toString(),
-          "issuerSN": this.issuer,
+          "issuerSN": this.issuer !== null ? this.issuer : "",
           "date": dateDate.toISOString()
         },
         "requester": email

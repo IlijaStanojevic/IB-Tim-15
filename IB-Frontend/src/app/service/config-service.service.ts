@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConfigServiceService {
-  private _api_url = 'http://localhost:8080/api';
-  private _auth_url = 'http://localhost:8080/api/user';
+  private _api_url = 'https://localhost:8080/api';
+  private _auth_url = 'https://localhost:8080/api/user';
   private _user_url = this._api_url + '/user';
 
-  private _certs_url = 'http://localhost:8080/api/certs'
+  private _certs_url = 'https://localhost:8080/api/certs'
   private _login_url = this._auth_url + '/login';
   private _driver_url = this._api_url + '/driver/'
 

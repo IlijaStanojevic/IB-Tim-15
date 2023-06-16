@@ -61,7 +61,7 @@ export class AllCertsComponent implements OnInit {
   }
 
   async onValidateInput() {
-    this.http.get("http://localhost:8080/api/certs/" + this.serialNumber + "/validate", {responseType: 'text'})
+    this.http.get("https://localhost:8080/api/certs/" + this.serialNumber + "/validate", {responseType: 'text'})
       .subscribe(
         response => {
           this.validateResponseMessage = response;
@@ -77,7 +77,7 @@ export class AllCertsComponent implements OnInit {
     if (this.selectedFile) {
       const fileUploadRequest: FormData = new FormData();
       fileUploadRequest.append('file', this.selectedFile);
-      this.http.post("http://localhost:8080/api/certs/validate/upload", fileUploadRequest, {responseType: 'text'})
+      this.http.post("https://localhost:8080/api/certs/validate/upload", fileUploadRequest, {responseType: 'text'})
         .subscribe(
           response => {
             this.validateResponseMessage = response;
@@ -98,7 +98,7 @@ export class AllCertsComponent implements OnInit {
 
   downloadCertificate(certificate: Certificate) {
     console.log(certificate);
-    const url = `http://localhost:8080/api/certs/${certificate.serialNumber}/download`;
+    const url = `https://localhost:8080/api/certs/${certificate.serialNumber}/download`;
 
     const options = { responseType: 'blob' as 'json' };
 
