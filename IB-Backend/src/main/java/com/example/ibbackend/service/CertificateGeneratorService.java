@@ -23,11 +23,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.apache.commons.codec.binary.Base64;
 import javax.security.auth.x500.X500Principal;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,10 +43,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
 
 @Service
 public class CertificateGeneratorService {
@@ -79,10 +78,12 @@ public class CertificateGeneratorService {
             }
         }
     }
-    public  FileSystemResource downloadCertificate(String serialNumber) throws FileNotFoundException, CertificateException {
+
+    public FileSystemResource downloadCertificate(String serialNumber) throws FileNotFoundException, CertificateException {
         String path = System.getProperty("user.dir") + certDir + "/" + serialNumber + ".crt";
         return new FileSystemResource(path);
     }
+
     public String getSerialNumberFromFile(MultipartFile file) throws IOException, CertificateException {
         byte[] fileBytes = file.getBytes();
         org.bouncycastle.jcajce.provider.asymmetric.x509.CertificateFactory factory = new org.bouncycastle.jcajce.provider.asymmetric.x509.CertificateFactory();
@@ -103,12 +104,14 @@ public class CertificateGeneratorService {
     private Certificate exportGeneratedCertificate(X509Certificate cert) throws IOException, CertificateEncodingException {
         Certificate certForDB = certForDBFromX509(cert);
         certificateRepository.save(certForDB);
-
         FileOutputStream fosC = new FileOutputStream(System.getProperty("user.dir") + certDir + certForDB.getSerialNumber() + ".crt");
         fosC.write(cert.getEncoded());
         fosC.close();
+
         FileOutputStream fosK = new FileOutputStream(System.getProperty("user.dir") + certDir + certForDB.getSerialNumber() + ".key");
-        fosK.write(currentRSA.getPrivate().getEncoded());
+        byte[] privateKeyBytes = currentRSA.getPrivate().getEncoded();
+        String privateKeyPEM = Base64.encodeBase64String(privateKeyBytes);
+        fosK.write(privateKeyPEM.getBytes());
         fosK.close();
 
         return certForDB;
@@ -238,12 +241,13 @@ public class CertificateGeneratorService {
                 .getCertificate(certHolder);
         return generatedCertificate;
     }
+
     // TODO add cancelling all children based on cert
     public void cancelCertificate(Certificate certificate) {
         certificate.setValid(false);
         certificateRepository.save(certificate);
         List<Certificate> certs = certificateRepository.findCertificatesByIssuer(certificate.getSerialNumber());
-        for (Certificate cert :certs){
+        for (Certificate cert : certs) {
             cancelCertificate(cert);
         }
     }

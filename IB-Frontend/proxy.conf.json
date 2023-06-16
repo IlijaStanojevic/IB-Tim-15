@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://localhost:8080",
+    "secure": true,
+    "changeOrigin": true,
+    "ssl": {
+      "key": "src/ssl/52164250854281368003411587396543300912.key",
+      "cert": "src/ssl/52164250854281368003411587396543300912.crt"
+    }
+  }
+}

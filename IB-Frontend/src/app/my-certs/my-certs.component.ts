@@ -33,7 +33,7 @@ export class MyCertsComponent implements  OnInit{
   }
 
   downloadKey(serialNumber: string) {
-    const url = `http://localhost:8080/api/keys/${serialNumber}/download`;
+    const url = `https://localhost:8080/api/keys/${serialNumber}/download`;
 
     const options = { responseType: 'blob' as 'json' };
 
