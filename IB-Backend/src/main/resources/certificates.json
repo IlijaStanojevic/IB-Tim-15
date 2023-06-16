@@ -127,4 +127,40 @@
   "type": "End",
   "username": "1234",
   "_class": "com.example.ibbackend.model.Certificate"
+},{
+  "_id": "52907119521805472454136817128719721684",
+  "validFrom": {
+    "$date": "2023-06-15T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-06-30T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "Root",
+  "username": "admin",
+  "_class": "com.example.ibbackend.model.Certificate"
+},{
+  "_id": "52164250854281368003411587396543300912",
+  "validFrom": {
+    "$date": "2023-06-15T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-06-30T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "Root",
+  "username": "admin",
+  "_class": "com.example.ibbackend.model.Certificate"
+},{
+  "_id": "166442562081983815496943976730412336407",
+  "validFrom": {
+    "$date": "2023-06-15T22:00:00.000Z"
+  },
+  "validTo": {
+    "$date": "2023-06-30T22:00:00.000Z"
+  },
+  "isValid": true,
+  "type": "Root",
+  "username": "admin",
+  "_class": "com.example.ibbackend.model.Certificate"
 }]
